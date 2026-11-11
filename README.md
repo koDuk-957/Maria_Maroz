@@ -15,9 +15,9 @@
 2. Скопируйте `.env.example` в `.env` и укажите токен бота:
 
    ```env
-   BOT_TOKEN=токен_от_BotFather
+   BOT_TOKEN=9073173569:AAEsi55AjMzZDmWMxPS_5esLJ6WK59tTwh8
    CONTACT_USERNAME=Maroz_Maria
-   MINIAPP_URL=https://ваш-домен/miniapp.html
+   MINIAPP_URL=https://maria-maroz-bot.onrender.com
    ```
 
    `MINIAPP_URL` необязателен. Пока он пустой, бот работает без кнопки открытия Mini App.
