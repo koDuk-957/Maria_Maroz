@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Мария Мароз — Визитка</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface-hover: #1c1c1c;
+      --text: #f4f1ea;
+      --text-secondary: #a39e94;
+      --gold: #c9a86c;
+      --gold-soft: rgba(201, 168, 108, 0.14);
+      --gold-line: rgba(201, 168, 108, 0.35);
+      --border: rgba(255,255,255,0.06);
+      --radius: 16px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding-bottom: 24px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 440px; margin: 0 auto; padding: 0 16px; }
+
+    .hero { padding: 28px 0 24px; text-align: center; position: relative; }
+    .hero::before {
+      content: ''; position: absolute; top: -10px; left: 50%;
+      transform: translateX(-50%); width: 140px; height: 140px;
+      background: radial-gradient(circle, rgba(201,168,108,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+      border: 1px solid var(--gold-line);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 600; color: var(--gold);
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 600; margin-bottom: 4px;
+      position: relative; z-index: 1;
+    }
+    .hero .role {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .hero .tagline {
+      font-size: 13.5px; font-weight: 300;
+      color: var(--text-secondary); max-width: 280px;
+      margin: 0 auto; line-height: 1.55;
+    }
+
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin: 24px 0 28px;
+    }
+    .stat {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px 6px; text-align: center;
+    }
+    .stat .num {
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 18px; font-weight: 700; color: var(--gold);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat .label {
+      font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-secondary); margin-top: 2px; font-weight: 500;
+    }
+
+    .section-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-secondary); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .services { display: flex; flex-direction: column; gap: 8px; }
+    .service {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .service.open { border-color: var(--gold-line); }
+    .service-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 14px 12px; cursor: pointer; gap: 10px; user-select: none;
+    }
+    .service-head h3 { font-size: 14.5px; font-weight: 600; flex: 1; }
+    .service-head .badge {
+      font-size: 9px; font-weight: 600; letter-spacing: 0.04em;
+      background: var(--gold-soft); color: var(--gold);
+      padding: 3px 8px; border-radius: 999px;
+    }
+    .service-head .chevron {
+      width: 16px; height: 16px; color: var(--text-secondary);
+      transition: transform 0.3s, color 0.2s; flex-shrink: 0;
+    }
+    .service.open .chevron { transform: rotate(180deg); color: var(--gold); }
+    .service-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .service.open .service-body { max-height: 900px; }
+    .service-content {
+      padding: 0 14px 16px; border-top: 1px solid var(--border); padding-top: 12px;
+    }
+    .service-content .sub {
+      font-size: 12.5px; color: var(--text-secondary);
+      margin-bottom: 12px; font-weight: 300;
+    }
+    .service-content ul { list-style: none; margin-bottom: 12px; }
+    .service-content li {
+      display: flex; gap: 10px; font-size: 13px;
+      padding: 5px 0; color: #d8d4cc;
+    }
+    .service-content li .n {
+      color: var(--gold); font-weight: 600; width: 20px; flex-shrink: 0; font-size: 11px;
+    }
+    .service-content .note {
+      background: rgba(201, 168, 108, 0.07);
+      border: 1px solid var(--gold-line);
+      border-radius: 10px; padding: 10px 12px;
+      font-size: 12px; color: #c8c3b8; line-height: 1.45;
+    }
+    .service-content .note strong { color: var(--gold); font-weight: 600; }
+
+    footer {
+      text-align: center; padding: 24px 0 8px;
+      font-size: 11px; color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="avatar">ММ</div>
+      <h1>Мария Мароз</h1>
+      <div class="role">Эксперт по недвижимости</div>
+      <p class="tagline">Сопровождение сделок, ипотека и инвестиционные объекты</p>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><div class="num">360+</div><div class="label">сделок</div></div>
+      <div class="stat"><div class="num">14 дн</div><div class="label">рекорд</div></div>
+      <div class="stat"><div class="num">0 ₽</div><div class="label">консультация</div></div>
+    </div>
+
+    <div class="section-label">Услуги</div>
+    <div class="services">
+
+      <div class="service open">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Первичная консультация</h3>
+          <span class="badge">бесплатно</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Разбираем задачу и определяем план при намерении работать вместе</p>
+          <ul>
+            <li><span class="n">01</span> Уточнение цели и ограничений</li>
+            <li><span class="n">02</span> Предварительная оценка возможностей</li>
+            <li><span class="n">03</span> Варианты решения и риски</li>
+            <li><span class="n">04</span> Формат и этапы сотрудничества</li>
+          </ul>
+          <div class="note">Точка входа — <strong>без обязательств</strong>.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Ипотечное сопровождение</h3>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Семейная, военная, IT-ипотека и банковские программы</p>
+          <ul>
+            <li><span class="n">01</span> Подбор программы под ваш профиль</li>
+            <li><span class="n">02</span> Нестандартная кредитная история</li>
+            <li><span class="n">03</span> Разбор отказов и пути устранения</li>
+            <li><span class="n">04</span> Подготовка пакета до одобрения</li>
+          </ul>
+          <div class="note">Работа с банками <strong>под вашу задачу</strong>.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Покупка в новостройке</h3>
+          <span class="badge">0 ₽</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Услуги покупателя без доп. оплаты при сделке через меня</p>
+          <ul>
+            <li><span class="n">01</span> Сравнение условий застройщиков</li>
+            <li><span class="n">02</span> Оценка комплекса и локации</li>
+            <li><span class="n">03</span> Подбор под бюджет и сценарий</li>
+            <li><span class="n">04</span> Анализ цен и планировок</li>
+            <li><span class="n">05</span> Акции и закрытые предложения</li>
+            <li><span class="n">06</span> Проверка документов и ДДУ</li>
+            <li><span class="n">07</span> Сопровождение до ключей</li>
+          </ul>
+          <div class="note">Спеццена + сопровождение <strong>в подарок</strong>.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Сделки на вторичном рынке</h3>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Покупка и продажа квартир, домов и участков</p>
+          <ul>
+            <li><span class="n">01</span> Оценка рыночной стоимости</li>
+            <li><span class="n">02</span> Стратегия продажи или поиска</li>
+            <li><span class="n">03</span> Переговоры и выгодные условия</li>
+            <li><span class="n">04</span> Юридическая проверка</li>
+            <li><span class="n">05</span> Показы и подготовка к сделке</li>
+            <li><span class="n">06</span> Ведение до регистрации</li>
+          </ul>
+          <div class="note"><strong>360+</strong> сделок · рекорд <strong>14 дней</strong>.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Нестандартные сделки</h3>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Наследство, доли, несколько собственников, иностранцы</p>
+          <ul>
+            <li><span class="n">01</span> Анализ документов</li>
+            <li><span class="n">02</span> Безопасное правовое решение</li>
+            <li><span class="n">03</span> Согласование интересов</li>
+            <li><span class="n">04</span> Организация со специалистами</li>
+          </ul>
+          <div class="note">Опыт с <strong>несколькими собственниками</strong> и наследством.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Объекты по всей России</h3>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Москва · Санкт-Петербург · Юг</p>
+          <ul>
+            <li><span class="n">01</span> Актуальные предложения</li>
+            <li><span class="n">02</span> Для жизни, отдыха и вложений</li>
+            <li><span class="n">03</span> Спецусловия и закрытые лоты</li>
+            <li><span class="n">04</span> Сравнение условий</li>
+            <li><span class="n">05</span> Дистанционное оформление</li>
+          </ul>
+          <div class="note">От центра до моря — <strong>проверенные варианты</strong>.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Посуточная аренда под ключ</h3>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Инвестиционный объект с готовой моделью дохода</p>
+          <ul>
+            <li><span class="n">01</span> Подбор по локации и спросу</li>
+            <li><span class="n">02</span> Прогноз доходности</li>
+            <li><span class="n">03</span> Запуск: объявления, брони, заселение</li>
+            <li><span class="n">04</span> Контроль гостей и объекта</li>
+            <li><span class="n">05</span> Уборка и обслуживание</li>
+            <li><span class="n">06</span> Страхование</li>
+          </ul>
+          <div class="note"><strong>Пассивный доход</strong> без самостоятельного управления.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Доходная недвижимость</h3>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">От выбора объекта до работающего арендного бизнеса</p>
+          <ul>
+            <li><span class="n">01</span> Анализ локации и доходности</li>
+            <li><span class="n">02</span> Финансовая модель</li>
+            <li><span class="n">03</span> Комплектация под гостей</li>
+            <li><span class="n">04</span> Запуск и управление календарём</li>
+            <li><span class="n">05</span> Операционное управление</li>
+            <li><span class="n">06</span> Страховая защита</li>
+          </ul>
+          <div class="note"><strong>Готовый арендный бизнес</strong>.</div>
+        </div></div>
+      </div>
+
+      <div class="service">
+        <div class="service-head" onclick="toggle(this)">
+          <h3>Страхование объекта</h3>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="service-body"><div class="service-content">
+          <p class="sub">Защита недвижимости и вложений</p>
+          <ul>
+            <li><span class="n">01</span> Пожар, затопление и иные риски</li>
+            <li><span class="n">02</span> Отделка, мебель и техника</li>
+            <li><span class="n">03</span> Ответственность перед соседями</li>
+            <li><span class="n">04</span> Условия под посуточную аренду</li>
+            <li><span class="n">05</span> Оформление и сопровождение</li>
+          </ul>
+          <div class="note"><strong>Дополнительная защита</strong> капитала.</div>
+        </div></div>
+      </div>
+
+    </div>
+    <footer>Мария Мароз · @Maroz_Maria</footer>
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      tg.setHeaderColor('#0a0a0a');
+      tg.setBackgroundColor('#0a0a0a');
+      tg.MainButton.setText('Написать Марии');
+      tg.MainButton.color = '#c9a86c';
+      tg.MainButton.textColor = '#0a0a0a';
+      tg.MainButton.show();
+      tg.MainButton.onClick(() => {
+        tg.openTelegramLink('https://t.me/Maroz_Maria');
+      });
+    }
+    function toggle(el) {
+      const service = el.parentElement;
+      const wasOpen = service.classList.contains('open');
+      document.querySelectorAll('.service.open').forEach(s => s.classList.remove('open'));
+      if (!wasOpen) service.classList.add('open');
+    }
+  </script>
+</body>
+</html>
