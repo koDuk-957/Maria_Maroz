@@ -137,6 +137,23 @@
     .gallery-card figcaption { padding: 9px 11px 11px; color: var(--text-secondary); font-size: 11px; letter-spacing: .02em; }
     @media (max-width: 360px) { .gallery-grid { gap: 8px; } .gallery-card img { height: 126px; } .gallery-card-wide img { height: 160px; } }
 
+    .signature {
+      text-align: center; padding: 24px 0 18px;
+      border-top: 1px solid var(--gold-line); margin-top: 26px;
+    }
+    .signature-name {
+      display: block; font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 25px; line-height: 1.05; font-weight: 600;
+      letter-spacing: .025em; color: var(--gold);
+    }
+    .signature-handle {
+      display: inline-block; margin-top: 6px;
+      font-family: 'Outfit', sans-serif; font-size: 11px;
+      letter-spacing: .12em; color: var(--text-secondary);
+    }
+    .gallery-top { margin: 18px 0 34px; }
+    .gallery-bottom { margin: 40px 0 26px; }
+
     .section-label::after {
       content: ''; flex: 1; height: 1px; background: var(--border);
     }
@@ -229,6 +246,18 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.24 0 .38z"/></svg>
         Связаться в Telegram
       </a>
+    </section>
+
+    <section class="gallery gallery-top" aria-label="Счастливые покупатели и новые дома">
+      <div class="section-label">Новые истории и красивые дома</div>
+      <p class="gallery-intro">Переезд в своё пространство — важный и радостный этап. Помогаю пройти путь к нему спокойно и уверенно.</p>
+      <div class="gallery-grid"><figure class="gallery-card gallery-card-wide">
+          <img src="https://images.pexels.com/photos/36729675/pexels-photo-36729675.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Счастливая пара получает ключи от нового дома" loading="lazy" decoding="async">
+          <figcaption>Радость нового дома</figcaption>
+        </figure><figure class="gallery-card">
+          <img src="https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Пара держит ключи от нового жилья" loading="lazy" decoding="async">
+          <figcaption>Новый этап жизни</figcaption>
+        </figure></div>
     </section>
 
     <div class="stats">
@@ -371,29 +400,17 @@
     </div>
 
 
-    <section class="gallery" aria-label="Новые дома и счастливые покупатели">
-      <div class="section-label">Новые истории и красивые дома</div>
-      <p class="gallery-intro">Переезд в своё пространство — важный и радостный этап. Помогаю пройти путь к нему спокойно и уверенно.</p>
-      <div class="gallery-grid">
-        <figure class="gallery-card gallery-card-wide">
-          <img src="https://images.pexels.com/photos/36729675/pexels-photo-36729675.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Счастливая пара получает ключи от нового дома" loading="lazy" decoding="async">
-          <figcaption>Радость нового дома</figcaption>
-        </figure>
-        <figure class="gallery-card">
-          <img src="https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Пара держит ключи от нового жилья" loading="lazy" decoding="async">
-          <figcaption>Новый этап жизни</figcaption>
-        </figure>
-        <figure class="gallery-card">
+    <section class="gallery gallery-bottom" aria-label="Современные дома и архитектура">
+      <div class="section-label">Пространство для новой жизни</div>
+      <div class="gallery-grid"><figure class="gallery-card">
           <img src="https://images.pexels.com/photos/6797233/pexels-photo-6797233.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Современный жилой дом с балконами" loading="lazy" decoding="async">
           <figcaption>Современная архитектура</figcaption>
-        </figure>
-        <figure class="gallery-card gallery-card-wide">
+        </figure><figure class="gallery-card gallery-card-wide">
           <img src="https://images.pexels.com/photos/40758580/pexels-photo-40758580.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Фасад современного жилого комплекса" loading="lazy" decoding="async">
           <figcaption>Дома, в которых хочется жить</figcaption>
-        </figure>
-      </div>
+        </figure></div>
     </section>
-    <footer>Мария Мароз · <a href="https://t.me/Maroz_Maria" target="_blank">@Maroz_Maria</a></footer>
+    <footer class="signature"><span class="signature-name">Мария Мароз</span><a class="signature-handle" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">@Maroz_Maria</a></footer>
   </div>
 
   <div class="bottom-bar">
