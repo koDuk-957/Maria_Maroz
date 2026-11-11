@@ -92,6 +92,17 @@
       color: var(--text-secondary); margin-bottom: 12px;
       display: flex; align-items: center; gap: 10px;
     }
+
+    .gallery { margin: 42px 0 34px; }
+    .gallery-intro { color: var(--text-secondary); font-size: 13px; font-weight: 300; line-height: 1.6; margin: -4px 0 16px; }
+    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .gallery-card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+    .gallery-card-wide { grid-column: span 2; }
+    .gallery-card img { display: block; width: 100%; height: 150px; object-fit: cover; }
+    .gallery-card-wide img { height: 190px; }
+    .gallery-card figcaption { padding: 9px 11px 11px; color: var(--text-secondary); font-size: 11px; letter-spacing: .02em; }
+    @media (max-width: 360px) { .gallery-grid { gap: 8px; } .gallery-card img { height: 126px; } .gallery-card-wide img { height: 160px; } }
+
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     .services { display: flex; flex-direction: column; gap: 8px; }
@@ -140,7 +151,7 @@
     }
     .service-content .note strong { color: var(--gold); font-weight: 600; }
 
-    footer {
+    .mini-contact { margin: 22px 0 0; }\n    .mini-contact a { display: flex; justify-content: center; align-items: center; width: 100%; padding: 14px 20px; border-radius: 999px; background: #000000; color: var(--gold); border: 1px solid var(--gold-line); font-size: 14px; font-weight: 600; }\n    footer {
       text-align: center; padding: 24px 0 8px;
       font-size: 11px; color: var(--text-secondary);
     }
@@ -152,7 +163,7 @@
       <div class="avatar">ММ</div>
       <h1>Мария Мароз</h1>
       <div class="role">Эксперт по недвижимости</div>
-      <p class="tagline">Сопровождение сделок, ипотека и инвестиционные объекты</p>
+      <p class="tagline">Помогаю выбрать недвижимость и безопасно пройти путь до сделки</p>
     </section>
 
     <div class="stats">
@@ -276,44 +287,6 @@
 
       <div class="service">
         <div class="service-head" onclick="toggle(this)">
-          <h3>Посуточная аренда под ключ</h3>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-        <div class="service-body"><div class="service-content">
-          <p class="sub">Инвестиционный объект с готовой моделью дохода</p>
-          <ul>
-            <li><span class="n">01</span> Подбор по локации и спросу</li>
-            <li><span class="n">02</span> Прогноз доходности</li>
-            <li><span class="n">03</span> Запуск: объявления, брони, заселение</li>
-            <li><span class="n">04</span> Контроль гостей и объекта</li>
-            <li><span class="n">05</span> Уборка и обслуживание</li>
-            <li><span class="n">06</span> Страхование</li>
-          </ul>
-          <div class="note"><strong>Пассивный доход</strong> без самостоятельного управления.</div>
-        </div></div>
-      </div>
-
-      <div class="service">
-        <div class="service-head" onclick="toggle(this)">
-          <h3>Доходная недвижимость</h3>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-        <div class="service-body"><div class="service-content">
-          <p class="sub">От выбора объекта до работающего арендного бизнеса</p>
-          <ul>
-            <li><span class="n">01</span> Анализ локации и доходности</li>
-            <li><span class="n">02</span> Финансовая модель</li>
-            <li><span class="n">03</span> Комплектация под гостей</li>
-            <li><span class="n">04</span> Запуск и управление календарём</li>
-            <li><span class="n">05</span> Операционное управление</li>
-            <li><span class="n">06</span> Страховая защита</li>
-          </ul>
-          <div class="note"><strong>Готовый арендный бизнес</strong>.</div>
-        </div></div>
-      </div>
-
-      <div class="service">
-        <div class="service-head" onclick="toggle(this)">
           <h3>Страхование объекта</h3>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
@@ -323,7 +296,7 @@
             <li><span class="n">01</span> Пожар, затопление и иные риски</li>
             <li><span class="n">02</span> Отделка, мебель и техника</li>
             <li><span class="n">03</span> Ответственность перед соседями</li>
-            <li><span class="n">04</span> Условия под посуточную аренду</li>
+            <li><span class="n">04</span> Дополнительные риски при владении недвижимостью</li>
             <li><span class="n">05</span> Оформление и сопровождение</li>
           </ul>
           <div class="note"><strong>Дополнительная защита</strong> капитала.</div>
@@ -331,6 +304,31 @@
       </div>
 
     </div>
+
+
+    <section class="gallery" aria-label="Новые дома и счастливые покупатели">
+      <div class="section-label">Новые истории и красивые дома</div>
+      <p class="gallery-intro">Переезд в своё пространство — важный и радостный этап. Помогаю пройти путь к нему спокойно и уверенно.</p>
+      <div class="gallery-grid">
+        <figure class="gallery-card gallery-card-wide">
+          <img src="https://images.pexels.com/photos/36729675/pexels-photo-36729675.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Счастливая пара получает ключи от нового дома" loading="lazy" decoding="async">
+          <figcaption>Радость нового дома</figcaption>
+        </figure>
+        <figure class="gallery-card">
+          <img src="https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Пара держит ключи от нового жилья" loading="lazy" decoding="async">
+          <figcaption>Новый этап жизни</figcaption>
+        </figure>
+        <figure class="gallery-card">
+          <img src="https://images.pexels.com/photos/6797233/pexels-photo-6797233.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Современный жилой дом с балконами" loading="lazy" decoding="async">
+          <figcaption>Современная архитектура</figcaption>
+        </figure>
+        <figure class="gallery-card gallery-card-wide">
+          <img src="https://images.pexels.com/photos/40758580/pexels-photo-40758580.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Фасад современного жилого комплекса" loading="lazy" decoding="async">
+          <figcaption>Дома, в которых хочется жить</figcaption>
+        </figure>
+      </div>
+    </section>
+    <div class="mini-contact"><a href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">Написать Марии</a></div>
     <footer>Мария Мароз · @Maroz_Maria</footer>
   </div>
 
@@ -343,7 +341,7 @@
       tg.setBackgroundColor('#0a0a0a');
       tg.MainButton.setParams({
         text: 'Написать Марии',
-        color: '#161616',
+        color: '#000000',
         text_color: '#c9a86c',
         is_visible: true
       });
