@@ -9,7 +9,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Мария Мароз — Эксперт по недвижимости</title>
-  <meta name="description" content="Мария Мароз — эксперт по недвижимости. Ипотека, новостройки и сопровождение сделок." />
+  <meta name="description" content="Мария Мароз — эксперт по недвижимости. Подбор объектов, ипотечное сопровождение, покупка и продажа недвижимости." />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -283,12 +284,52 @@
       font-size: 12px; color: var(--text-secondary);
     }
     footer a { color: var(--gold); font-weight: 500; }
+
+    /* Premium presentation */
+    .hero { padding: 62px 0 46px; }
+    .hero::after { content: ''; position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); width: 54px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .hero-kicker { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; color: var(--text-secondary); font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+    .hero-kicker::before, .hero-kicker::after { content: ''; width: 20px; height: 1px; background: var(--gold-line); }
+    .avatar { width: 104px; height: 104px; margin-bottom: 20px; box-shadow: 0 0 0 7px rgba(201,168,108,.045), 0 16px 42px rgba(0,0,0,.32); font-size: 36px; letter-spacing: .04em; }
+    .hero h1 { font-size: clamp(38px, 10vw, 44px); line-height: 1.04; margin-bottom: 9px; }
+    .hero .role { font-size: 10px; letter-spacing: .19em; margin-bottom: 17px; }
+    .hero .tagline { max-width: 325px; font-size: 14px; margin-bottom: 25px; }
+    .contact-actions { gap: 11px; }
+    .hero .btn-main, .hero .btn-max { min-height: 52px; min-width: 142px; padding: 14px 22px; border: 1px solid var(--gold-line); font-size: 13px; letter-spacing: .02em; }
+    .hero .btn-main { background: linear-gradient(135deg, #d8bb83, #b18b4e); color: #17130d; box-shadow: 0 8px 24px rgba(201,168,108,.13); }
+    .hero .btn-main:hover { box-shadow: 0 12px 30px rgba(201,168,108,.22); }
+    .hero .btn-max { background: rgba(201,168,108,.055); color: var(--text); }
+    .section-block { margin: 0 0 46px; }
+    .section-heading { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 29px; line-height: 1.08; font-weight: 600; color: var(--text); margin: 0 0 8px; }
+    .section-lead { color: var(--text-secondary); font-size: 13px; font-weight: 300; line-height: 1.65; margin: 0 0 18px; }
+    .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .benefit { min-height: 138px; padding: 17px 15px; border-radius: 15px; border: 1px solid var(--border); background: linear-gradient(145deg, #191919, #111); }
+    .benefit-index { color: var(--gold); font-size: 10px; letter-spacing: .16em; font-weight: 600; margin-bottom: 13px; }
+    .benefit h3 { font-size: 13px; line-height: 1.35; font-weight: 600; margin-bottom: 6px; }
+    .benefit p { color: var(--text-secondary); font-size: 11px; line-height: 1.5; font-weight: 300; }
+    .reviews-panel { border: 1px solid var(--gold-line); border-radius: 18px; padding: 22px 19px; background: radial-gradient(ellipse at top right, rgba(201,168,108,.09), transparent 65%), var(--surface); }
+    .reviews-mark { color: var(--gold); font-family: Georgia, serif; font-size: 36px; line-height: .8; margin-bottom: 12px; }
+    .reviews-panel p { color: var(--text-secondary); font-size: 13px; line-height: 1.65; font-weight: 300; }
+    .reviews-panel strong { color: var(--text); font-weight: 500; }
+    .contact-panel { border: 1px solid var(--gold-line); border-radius: 18px; padding: 22px 18px; background: linear-gradient(145deg, rgba(201,168,108,.09), rgba(22,22,22,.96) 55%); }
+    .contact-panel .section-heading { margin-bottom: 7px; }
+    .contact-panel p { color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 18px; }
+    .contact-list { display: grid; gap: 9px; }
+    .contact-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 14px; border: 1px solid var(--border); border-radius: 12px; background: rgba(0,0,0,.22); font-size: 13px; font-weight: 500; transition: border-color .2s, background .2s; }
+    .contact-link:hover { border-color: var(--gold-line); background: rgba(201,168,108,.07); }
+    .contact-link span:last-child { color: var(--gold); font-size: 11px; }
+    .service-head:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .bottom-bar { padding-top: 11px; }
+    .bottom-bar .btn-main { width: auto; }
+    @media (max-width: 360px) { .hero .btn-main, .hero .btn-max { min-width: 0; flex: 1; padding-left: 14px; padding-right: 14px; } .benefit { padding: 15px 12px; } }
+
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
-      <div class="avatar">ММ</div>
+      <div class="hero-kicker">Недвижимость · сопровождение сделок</div>
+      <div class="avatar" aria-label="Инициалы Марии Мароз">ММ</div>
       <h1>Мария Мароз</h1>
       <div class="role">Эксперт по недвижимости</div>
       <p class="tagline">Помогаю выбрать недвижимость и безопасно пройти путь от первого вопроса до сделки</p>
@@ -320,6 +361,19 @@
       <div class="stat"><div class="num">14 дн</div><div class="label">рекорд</div></div>
       <div class="stat"><div class="num">0 ₽</div><div class="label">консультация</div></div>
     </div>
+
+
+    <section class="section-block" aria-labelledby="benefits-title">
+      <div class="section-label">Подход к работе</div>
+      <h2 class="section-heading" id="benefits-title">Важные решения — с понятным планом</h2>
+      <p class="section-lead">Сначала разбираемся в вашей ситуации, затем выбираем подходящий сценарий и последовательно проходим каждый этап.</p>
+      <div class="benefit-grid">
+        <article class="benefit"><div class="benefit-index">01 / ПОДБОР</div><h3>Решение под вашу задачу</h3><p>Учитываем бюджет, сроки, цели и важные условия.</p></article>
+        <article class="benefit"><div class="benefit-index">02 / ПРОВЕРКА</div><h3>Внимание к деталям</h3><p>Разбираем документы, условия и возможные риски.</p></article>
+        <article class="benefit"><div class="benefit-index">03 / ПЕРЕГОВОРЫ</div><h3>Согласование условий</h3><p>Помогаем сравнить варианты и договориться о существенных пунктах.</p></article>
+        <article class="benefit"><div class="benefit-index">04 / СОПРОВОЖДЕНИЕ</div><h3>От первого вопроса до сделки</h3><p>Координируем процесс и держим в фокусе следующие шаги.</p></article>
+      </div>
+    </section>
 
     <div class="section-label">Услуги</div>
     <div class="services">
@@ -454,6 +508,25 @@
 
     </div>
 
+
+
+    <section class="section-block" aria-labelledby="reviews-title">
+      <div class="section-label">Обратная связь</div>
+      <h2 class="section-heading" id="reviews-title">Отзывы клиентов</h2>
+      <div class="reviews-panel">
+        <div class="reviews-mark" aria-hidden="true">“</div>
+        <p><strong>Здесь будут реальные отзывы клиентов.</strong><br>Добавим опубликованные отзывы и ссылки на их источники после согласования материалов. Неподтверждённые цитаты и оценки размещать не будем.</p>
+      </div>
+    </section>
+    <section class="section-block contact-panel" aria-labelledby="contacts-title">
+      <div class="section-label">Связаться</div>
+      <h2 class="section-heading" id="contacts-title">Обсудим вашу задачу</h2>
+      <p>Напишите удобным способом. Можно начать с короткого вопроса — сориентирую по дальнейшим шагам.</p>
+      <div class="contact-list">
+        <a class="contact-link" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener"><span>Telegram · @Maroz_Maria</span><span>Написать ↗</span></a>
+        <a class="contact-link" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener"><span>MAX</span><span>Написать ↗</span></a>
+      </div>
+    </section>
 
     <section class="gallery gallery-bottom" aria-label="Современные дома и архитектура">
       <div class="section-label">Пространство для новой жизни</div>
