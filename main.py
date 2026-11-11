@@ -16,15 +16,22 @@ logger = logging.getLogger(__name__)
 
 
 async def main():
-    bot = Bot(
+    if not BOT_TOKEN:
+        raise RuntimeError(
+            "Не задан BOT_TOKEN. Добавьте токен Telegram-бота в переменные окружения."
+        )
+
+    async with Bot(
         token=BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
-    )
-    dp = Dispatcher()
-    dp.include_router(router)
+    ) as bot:
+        dp = Dispatcher()
+        dp.include_router(router)
 
-    logger.info("Бот Марии Мароз запущен")
-    await dp.start_polling(bot)
+        # Polling cannot run while a webhook is active.
+        await bot.delete_webhook(drop_pending_updates=False)
+        logger.info("Бот Марии Мароз запущен")
+        await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
