@@ -95,13 +95,42 @@
 
     .gallery { margin: 42px 0 34px; }
     .gallery-intro { color: var(--text-secondary); font-size: 13px; font-weight: 300; line-height: 1.6; margin: -4px 0 16px; }
-    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .gallery-card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
-    .gallery-card-wide { grid-column: span 2; }
-    .gallery-card img { display: block; width: 100%; height: 150px; object-fit: cover; }
-    .gallery-card-wide img { height: 190px; }
-    .gallery-card figcaption { padding: 9px 11px 11px; color: var(--text-secondary); font-size: 11px; letter-spacing: .02em; }
-    @media (max-width: 360px) { .gallery-grid { gap: 8px; } .gallery-card img { height: 126px; } .gallery-card-wide img { height: 160px; } }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+    .gallery-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      height: auto;
+      object-fit: cover;
+    }
+    .gallery-card figcaption {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      padding: 8px 10px;
+      color: var(--text-secondary);
+      font-size: 10.5px;
+      line-height: 1.35;
+      letter-spacing: .01em;
+    }
+    @media (max-width: 360px) {
+      .gallery-grid { gap: 8px; }
+      .gallery-card figcaption { padding: 7px 8px; font-size: 10px; }
+    }
 
     .signature {
       text-align: center; padding: 24px 0 18px;
@@ -202,7 +231,7 @@
     <section class="gallery gallery-top" aria-label="Счастливые покупатели и новые дома">
       <div class="section-label">Новые истории и красивые дома</div>
       <p class="gallery-intro">Переезд в своё пространство — важный и радостный этап. Помогаю пройти путь к нему спокойно и уверенно.</p>
-      <div class="gallery-grid"><figure class="gallery-card gallery-card-wide">
+      <div class="gallery-grid"><figure class="gallery-card">
           <img src="https://images.pexels.com/photos/36729675/pexels-photo-36729675.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Счастливая пара получает ключи от нового дома" loading="lazy" decoding="async">
           <figcaption>Радость нового дома</figcaption>
         </figure><figure class="gallery-card">
@@ -356,7 +385,7 @@
       <div class="gallery-grid"><figure class="gallery-card">
           <img src="https://images.pexels.com/photos/6797233/pexels-photo-6797233.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Современный жилой дом с балконами" loading="lazy" decoding="async">
           <figcaption>Современная архитектура</figcaption>
-        </figure><figure class="gallery-card gallery-card-wide">
+        </figure><figure class="gallery-card">
           <img src="https://images.pexels.com/photos/40758580/pexels-photo-40758580.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Фасад современного жилого комплекса" loading="lazy" decoding="async">
           <figcaption>Дома, в которых хочется жить</figcaption>
         </figure></div>
