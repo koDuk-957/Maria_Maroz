@@ -1,6 +1,7 @@
 import logging
 import os
 import secrets
+from pathlib import Path
 import hmac
 
 from aiohttp import web
@@ -38,6 +39,12 @@ def create_app() -> web.Application:
     async def health(_: web.Request) -> web.Response:
         return web.json_response({"status": "ok"})
 
+    async def landing_page(_: web.Request) -> web.FileResponse:
+        return web.FileResponse(Path(__file__).with_name("index.html"))
+
+    async def miniapp_page(_: web.Request) -> web.FileResponse:
+        return web.FileResponse(Path(__file__).with_name("miniapp.html"))
+
     async def telegram_webhook(request: web.Request) -> web.Response:
         supplied_secret = request.headers.get(
             "X-Telegram-Bot-Api-Secret-Token", ""
@@ -74,7 +81,9 @@ def create_app() -> web.Application:
         await bot.session.close()
 
     app = web.Application()
+    app.router.add_get("/", landing_page)
     app.router.add_get("/health", health)
+    app.router.add_get("/miniapp", miniapp_page)
     app.router.add_post(WEBHOOK_PATH, telegram_webhook)
     app.on_startup.append(on_startup)
     app.on_cleanup.append(on_cleanup)
