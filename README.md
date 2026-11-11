@@ -2,7 +2,7 @@
 
 Проект содержит Telegram-бота на aiogram 3, страницу-визитку и Telegram Mini App.
 
-## Запуск бота
+## Локальный запуск
 
 Требуется Python 3.10 или новее.
 
@@ -12,37 +12,48 @@
    pip install -r requirements.txt
    ```
 
-2. Скопируйте `.env.example` в `.env` и укажите токен бота:
+2. Скопируйте `.env.example` в `.env` и укажите собственный токен бота от @BotFather:
 
    ```env
-   BOT_TOKEN=9073173569:AAEsi55AjMzZDmWMxPS_5esLJ6WK59tTwh8
+   BOT_TOKEN=вставьте_сюда_новый_токен
    CONTACT_USERNAME=Maroz_Maria
-   MINIAPP_URL=https://maria-maroz-bot.onrender.com
+   MINIAPP_URL=
    ```
 
-   `MINIAPP_URL` необязателен. Пока он пустой, бот работает без кнопки открытия Mini App.
+   Не публикуйте токен в GitHub и не отправляйте его в переписке. Если токен когда-либо попал в публичный репозиторий, отзовите его через @BotFather и выпустите новый.
 
-3. Запустите:
+3. Запустите приложение:
 
    ```bash
    python main.py
    ```
 
-   Старый способ запуска также поддерживается:
+   Приложение использует webhook и требует публичный HTTPS-адрес. Для локальной разработки настройте HTTPS-туннель и переменную `RENDER_EXTERNAL_URL` либо используйте отдельную локальную конфигурацию.
 
-   ```bash
-   python bot_simple.py
-   ```
+## Развёртывание на Render
 
-## Развёртывание
+Создайте **Web Service** с настройками:
 
-Для постоянной работы бота используйте worker/background service с командой `python main.py` и задайте переменные окружения `BOT_TOKEN`, `CONTACT_USERNAME` и при необходимости `MINIAPP_URL`. Файл `Procfile` содержит команду для worker.
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `python main.py`
+- Instance Type: `Free`
 
-Файлы `index.html` и `miniapp.html` — статические страницы. Чтобы открыть Mini App из Telegram, отдельно разместите `miniapp.html` на публичном HTTPS-хостинге и укажите его полный адрес в `MINIAPP_URL`. Сам Telegram-бот не раздаёт эти HTML-файлы.
+Добавьте Environment Variables:
+
+- `BOT_TOKEN` — новый токен от @BotFather.
+- `CONTACT_USERNAME` — `Maroz_Maria`.
+
+Render автоматически предоставляет `RENDER_EXTERNAL_URL` и `PORT`. При запуске приложение регистрирует Telegram webhook и обслуживает проверку состояния по адресу `/health`.
+
+Бесплатный Web Service может засыпать при отсутствии входящих запросов, поэтому возможны задержки при первом обращении после простоя.
+
+## Сайт и Mini App
+
+Файлы `index.html` и `miniapp.html` — статические страницы. Разместите их отдельно на публичном HTTPS-хостинге, например Cloudflare Pages. После публикации укажите полный адрес `miniapp.html` в переменной `MINIAPP_URL`, чтобы добавить кнопку открытия Mini App в Telegram.
 
 ## Структура
 
-- `main.py` — основной запуск бота.
+- `main.py` — запуск веб-сервиса и Telegram webhook.
 - `handlers.py` — команды и обработчики кнопок.
 - `keyboards.py` — клавиатуры Telegram.
 - `services_data.py` — описания услуг и пункты меню.
