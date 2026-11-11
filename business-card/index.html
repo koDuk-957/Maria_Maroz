@@ -99,6 +99,22 @@
       box-shadow: 0 10px 32px rgba(201, 168, 108, 0.18);
     }
     .btn-main svg { flex-shrink: 0; }
+    .contact-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .btn-max {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 50px; padding: 13px 22px; border-radius: 999px;
+      border: 1px solid var(--gold-line); background: var(--gold-soft);
+      color: var(--text); font: 600 14px 'Outfit', sans-serif;
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+    .btn-max:hover { transform: translateY(-2px); background: rgba(201,168,108,.22); border-color: var(--gold); }
+    .max-mark { width: 19px; height: 19px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--gold); border-radius: 6px; color: var(--gold); font-size: 11px; font-weight: 700; }
+    .bottom-bar .contact-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .bottom-bar .btn-main, .bottom-bar .btn-max { width: 100%; min-width: 0; padding: 14px 10px; font-size: 13px; }
+    @media (max-width: 360px) {
+      .bottom-bar { padding-left: 12px; padding-right: 12px; }
+      .bottom-bar .btn-main, .bottom-bar .btn-max { gap: 6px; font-size: 12px; }
+    }
 
     .stats {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -276,10 +292,15 @@
       <h1>Мария Мароз</h1>
       <div class="role">Эксперт по недвижимости</div>
       <p class="tagline">Помогаю выбрать недвижимость и безопасно пройти путь от первого вопроса до сделки</p>
-      <a class="btn-main" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.24 0 .38z"/></svg>
-        Связаться в Telegram
-      </a>
+      <div class="contact-actions">
+        <a class="btn-main" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.24 0 .38z"/></svg>
+          Telegram
+        </a>
+        <a class="btn-max" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener">
+          <span class="max-mark" aria-hidden="true">M</span> MAX
+        </a>
+      </div>
     </section>
 
     <section class="gallery gallery-top" aria-label="Счастливые покупатели и новые дома">
@@ -444,15 +465,20 @@
           <figcaption>Дома, в которых хочется жить</figcaption>
         </figure></div>
     </section>
-    <footer class="signature"><span class="signature-name">Мария Мароз</span><a class="signature-handle" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">@Maroz_Maria</a></footer>
+    <footer class="signature"><span class="signature-name">Мария Мароз</span><a class="signature-handle" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">Telegram · @Maroz_Maria</a><br><a class="signature-handle" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener">Связаться в MAX</a></footer>
   </div>
 
   <div class="bottom-bar">
     <div class="inner">
-      <a class="btn-main" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.24 0 .38z"/></svg>
-        Написать Марии
-      </a>
+      <div class="contact-actions">
+        <a class="btn-main" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.24 0 .38z"/></svg>
+          Telegram
+        </a>
+        <a class="btn-max" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener">
+          <span class="max-mark" aria-hidden="true">M</span> MAX
+        </a>
+      </div>
     </div>
   </div>
 
