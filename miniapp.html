@@ -103,6 +103,23 @@
     .gallery-card figcaption { padding: 9px 11px 11px; color: var(--text-secondary); font-size: 11px; letter-spacing: .02em; }
     @media (max-width: 360px) { .gallery-grid { gap: 8px; } .gallery-card img { height: 126px; } .gallery-card-wide img { height: 160px; } }
 
+    .signature {
+      text-align: center; padding: 24px 0 18px;
+      border-top: 1px solid var(--gold-line); margin-top: 26px;
+    }
+    .signature-name {
+      display: block; font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 25px; line-height: 1.05; font-weight: 600;
+      letter-spacing: .025em; color: var(--gold);
+    }
+    .signature-handle {
+      display: inline-block; margin-top: 6px;
+      font-family: 'Outfit', sans-serif; font-size: 11px;
+      letter-spacing: .12em; color: var(--text-secondary);
+    }
+    .gallery-top { margin: 18px 0 34px; }
+    .gallery-bottom { margin: 40px 0 26px; }
+
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     .services { display: flex; flex-direction: column; gap: 8px; }
@@ -151,7 +168,23 @@
     }
     .service-content .note strong { color: var(--gold); font-weight: 600; }
 
-    .mini-contact { margin: 22px 0 0; }\n    .mini-contact a { display: flex; justify-content: center; align-items: center; width: 100%; padding: 14px 20px; border-radius: 999px; background: #000000; color: var(--gold); border: 1px solid var(--gold-line); font-size: 14px; font-weight: 600; }\n    footer {
+    body { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
+    .mini-contact {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 100;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: rgba(10,10,10,.96); border-top: 1px solid var(--gold-line);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    }
+    .mini-contact a {
+      display: flex; justify-content: center; align-items: center;
+      width: 100%; max-width: 408px; margin: 0 auto; padding: 15px 20px;
+      border-radius: 999px; background: #000000; color: var(--gold);
+      border: 1px solid var(--gold-line); font-size: 14px;
+      font-family: 'Outfit', sans-serif; font-weight: 600;
+      letter-spacing: .025em; box-shadow: 0 6px 24px rgba(0,0,0,.45);
+    }
+    .mini-contact a:active { transform: scale(.985); }
+    footer {
       text-align: center; padding: 24px 0 8px;
       font-size: 11px; color: var(--text-secondary);
     }
@@ -164,6 +197,18 @@
       <h1>Мария Мароз</h1>
       <div class="role">Эксперт по недвижимости</div>
       <p class="tagline">Помогаю выбрать недвижимость и безопасно пройти путь до сделки</p>
+    </section>
+
+    <section class="gallery gallery-top" aria-label="Счастливые покупатели и новые дома">
+      <div class="section-label">Новые истории и красивые дома</div>
+      <p class="gallery-intro">Переезд в своё пространство — важный и радостный этап. Помогаю пройти путь к нему спокойно и уверенно.</p>
+      <div class="gallery-grid"><figure class="gallery-card gallery-card-wide">
+          <img src="https://images.pexels.com/photos/36729675/pexels-photo-36729675.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Счастливая пара получает ключи от нового дома" loading="lazy" decoding="async">
+          <figcaption>Радость нового дома</figcaption>
+        </figure><figure class="gallery-card">
+          <img src="https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Пара держит ключи от нового жилья" loading="lazy" decoding="async">
+          <figcaption>Новый этап жизни</figcaption>
+        </figure></div>
     </section>
 
     <div class="stats">
@@ -306,30 +351,18 @@
     </div>
 
 
-    <section class="gallery" aria-label="Новые дома и счастливые покупатели">
-      <div class="section-label">Новые истории и красивые дома</div>
-      <p class="gallery-intro">Переезд в своё пространство — важный и радостный этап. Помогаю пройти путь к нему спокойно и уверенно.</p>
-      <div class="gallery-grid">
-        <figure class="gallery-card gallery-card-wide">
-          <img src="https://images.pexels.com/photos/36729675/pexels-photo-36729675.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Счастливая пара получает ключи от нового дома" loading="lazy" decoding="async">
-          <figcaption>Радость нового дома</figcaption>
-        </figure>
-        <figure class="gallery-card">
-          <img src="https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Пара держит ключи от нового жилья" loading="lazy" decoding="async">
-          <figcaption>Новый этап жизни</figcaption>
-        </figure>
-        <figure class="gallery-card">
+    <section class="gallery gallery-bottom" aria-label="Современные дома и архитектура">
+      <div class="section-label">Пространство для новой жизни</div>
+      <div class="gallery-grid"><figure class="gallery-card">
           <img src="https://images.pexels.com/photos/6797233/pexels-photo-6797233.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Современный жилой дом с балконами" loading="lazy" decoding="async">
           <figcaption>Современная архитектура</figcaption>
-        </figure>
-        <figure class="gallery-card gallery-card-wide">
+        </figure><figure class="gallery-card gallery-card-wide">
           <img src="https://images.pexels.com/photos/40758580/pexels-photo-40758580.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Фасад современного жилого комплекса" loading="lazy" decoding="async">
           <figcaption>Дома, в которых хочется жить</figcaption>
-        </figure>
-      </div>
+        </figure></div>
     </section>
     <div class="mini-contact"><a href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">Написать Марии</a></div>
-    <footer>Мария Мароз · @Maroz_Maria</footer>
+    <footer class="signature"><span class="signature-name">Мария Мароз</span><a class="signature-handle" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">@Maroz_Maria</a></footer>
   </div>
 
   <script>
@@ -339,15 +372,8 @@
       tg.expand();
       tg.setHeaderColor('#0a0a0a');
       tg.setBackgroundColor('#0a0a0a');
-      tg.MainButton.setParams({
-        text: 'Написать Марии',
-        color: '#000000',
-        text_color: '#c9a86c',
-        is_visible: true
-      });
-      tg.MainButton.onClick(() => {
-        tg.openTelegramLink('https://t.me/Maroz_Maria');
-      });
+      // Собственная закреплённая HTML-кнопка не зависит от цветов темы Telegram.
+      tg.MainButton.hide();
     }
     function toggle(el) {
       const service = el.parentElement;
