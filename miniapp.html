@@ -341,10 +341,12 @@
       tg.expand();
       tg.setHeaderColor('#0a0a0a');
       tg.setBackgroundColor('#0a0a0a');
-      tg.MainButton.setText('Написать Марии');
-      tg.MainButton.color = '#c9a86c';
-      tg.MainButton.textColor = '#0a0a0a';
-      tg.MainButton.show();
+      tg.MainButton.setParams({
+        text: 'Написать Марии',
+        color: '#c9a86c',
+        text_color: '#0a0a0a',
+        is_visible: true
+      });
       tg.MainButton.onClick(() => {
         tg.openTelegramLink('https://t.me/Maroz_Maria');
       });
