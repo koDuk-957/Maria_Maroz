@@ -13,6 +13,12 @@ class ProjectSmokeTests(unittest.TestCase):
                 self.assertTrue(label.strip())
                 self.assertLessEqual(len(f"service:{key}"), 64)
 
+    def test_removed_service_categories_are_not_available(self):
+        self.assertNotIn("rent", SERVICES)
+        self.assertNotIn("investment", SERVICES)
+        self.assertNotIn(("rent", "Аренда и управление"), SERVICE_BUTTONS)
+        self.assertNotIn(("investment", "Инвестиции"), SERVICE_BUTTONS)
+
     def test_every_service_can_be_formatted(self):
         for key in SERVICES:
             with self.subTest(service=key):
