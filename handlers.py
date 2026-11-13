@@ -7,11 +7,21 @@ from services_data import SERVICES
 
 router = Router()
 
-# Editorial property image already used on Maria's separate business-card site.
+# Images are reused from the visual identity and gallery of Maria's business card.
 WELCOME_PHOTO = (
     "https://images.pexels.com/photos/30441428/"
     "pexels-photo-30441428.jpeg?auto=compress&cs=tinysrgb&w=1400"
 )
+
+SERVICE_PHOTOS = {
+    "consult": "https://images.pexels.com/photos/7534563/pexels-photo-7534563.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "ipoteka": "https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "newbuild": "https://images.pexels.com/photos/30441428/pexels-photo-30441428.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "deals": "https://images.pexels.com/photos/6580378/pexels-photo-6580378.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "complex": "https://images.pexels.com/photos/8082227/pexels-photo-8082227.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "regions": "https://images.pexels.com/photos/7214456/pexels-photo-7214456.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "insurance": "https://images.pexels.com/photos/6797233/pexels-photo-6797233.jpeg?auto=compress&cs=tinysrgb&w=1000",
+}
 
 
 def format_service(service_key: str) -> str:
@@ -38,20 +48,19 @@ def format_service(service_key: str) -> str:
     return "\n".join(lines)
 
 
-async def edit_screen(message: Message, text: str, reply_markup) -> None:
-    """Update either the welcome photo caption or a regular text message."""
-    if message.photo:
-        await message.edit_caption(
-            caption=text,
-            reply_markup=reply_markup,
-            parse_mode="HTML",
-        )
-    else:
-        await message.edit_text(
-            text,
-            reply_markup=reply_markup,
-            parse_mode="HTML",
-        )
+async def replace_with_photo(message: Message, photo: str, caption: str, reply_markup) -> None:
+    """Send the next branded screen, then remove the previous bot menu message."""
+    await message.answer_photo(
+        photo=photo,
+        caption=caption,
+        reply_markup=reply_markup,
+        parse_mode="HTML",
+    )
+    try:
+        await message.delete()
+    except Exception:
+        # A failed deletion must not prevent the new screen from working.
+        pass
 
 
 @router.message(CommandStart())
@@ -77,10 +86,14 @@ async def cmd_start(message: Message):
 
 @router.message(Command("menu"))
 async def cmd_menu(message: Message):
-    await message.answer(
+    text = (
         "✦  <b>Направления работы</b>\n\n"
         "Выберите интересующую услугу. Если пока не знаете, "
-        "с чего начать, можно сразу написать Марии.",
+        "с чего начать, можно сразу написать Марии."
+    )
+    await message.answer_photo(
+        photo=WELCOME_PHOTO,
+        caption=text,
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
@@ -107,7 +120,12 @@ async def callback_menu(callback: CallbackQuery):
         "Выберите интересующую услугу. "
         "Можно также написать Марии напрямую."
     )
-    await edit_screen(callback.message, text, main_menu_kb())
+    await replace_with_photo(
+        callback.message,
+        WELCOME_PHOTO,
+        text,
+        main_menu_kb(),
+    )
     await callback.answer()
 
 
@@ -118,8 +136,9 @@ async def callback_service(callback: CallbackQuery):
         await callback.answer("Услуга не найдена", show_alert=True)
         return
 
-    await edit_screen(
+    await replace_with_photo(
         callback.message,
+        SERVICE_PHOTOS.get(service_key, WELCOME_PHOTO),
         format_service(service_key),
         service_kb(service_key),
     )
