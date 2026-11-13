@@ -10,14 +10,14 @@ APP_URL = MINIAPP_URL or "https://maria-maroz.onrender.com/miniapp"
 
 def _contact_buttons() -> list[InlineKeyboardButton]:
     return [
-        InlineKeyboardButton(text="Telegram", url=f"https://t.me/{CONTACT_USERNAME}"),
-        InlineKeyboardButton(text="MAX", url=MAX_URL),
+        InlineKeyboardButton(text="Написать в Telegram", url=f"https://t.me/{CONTACT_USERNAME}"),
+        InlineKeyboardButton(text="Написать в MAX", url=MAX_URL),
     ]
 
 
 def _miniapp_button() -> InlineKeyboardButton:
     return InlineKeyboardButton(
-        text="Открыть мини-приложение",
+        text="Портфолио и услуги",
         web_app=WebAppInfo(url=APP_URL),
     )
 
@@ -40,7 +40,7 @@ def service_kb(service_key: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             _contact_buttons(),
-            [InlineKeyboardButton(text="← Все услуги", callback_data="menu")],
+            [InlineKeyboardButton(text="Все направления", callback_data="menu")],
             [_miniapp_button()],
         ]
     )
