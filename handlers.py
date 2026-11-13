@@ -7,14 +7,16 @@ from services_data import SERVICES
 
 router = Router()
 
-# Images are reused from the visual identity and gallery of Maria's business card.
+# The exact hero photograph used on Maria's business-card website.
 WELCOME_PHOTO = (
-    "https://images.pexels.com/photos/30441428/"
-    "pexels-photo-30441428.jpeg?auto=compress&cs=tinysrgb&w=1400"
+    "https://images.pexels.com/photos/7534563/"
+    "pexels-photo-7534563.jpeg?auto=compress&cs=tinysrgb&w=1400"
 )
 
+# These are the same photographs used in the corresponding service cards
+# on the business-card website.
 SERVICE_PHOTOS = {
-    "consult": "https://images.pexels.com/photos/7534563/pexels-photo-7534563.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "consult": "https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=1000",
     "ipoteka": "https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1000",
     "newbuild": "https://images.pexels.com/photos/30441428/pexels-photo-30441428.jpeg?auto=compress&cs=tinysrgb&w=1000",
     "deals": "https://images.pexels.com/photos/6580378/pexels-photo-6580378.jpeg?auto=compress&cs=tinysrgb&w=1000",
@@ -42,8 +44,8 @@ def format_service(service_key: str) -> str:
         "━━━━━━━━━━━━━━",
         f"<i>{data['footer']}</i>",
         "",
-        "<b>Хотите обсудить вашу ситуацию?</b>",
-        "Напишите Марии — подскажем, с чего лучше начать.",
+        "<b>Обсудим вашу задачу?</b>",
+        "Напишите Марии — подскажем, с чего начать.",
     ])
     return "\n".join(lines)
 
@@ -59,22 +61,18 @@ async def replace_with_photo(message: Message, photo: str, caption: str, reply_m
     try:
         await message.delete()
     except Exception:
-        # A failed deletion must not prevent the new screen from working.
         pass
 
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     text = (
-        "МАРИЯ МАРОЗ\n"
+        "<b>МАРИЯ МАРОЗ</b>\n"
         "<i>Эксперт по недвижимости</i>\n"
-        "━━━━━━━━━━━━━━\n\n"
-        "Недвижимость — это не только квадратные метры. "
-        "Это важное решение, в котором имеют значение детали, "
-        "условия и уверенность на каждом этапе.\n\n"
-        "Помогаю с покупкой и продажей, ипотекой, новостройками "
-        "и нестандартными сделками по всей России.\n\n"
-        "<b>Выберите направление, чтобы узнать подробнее.</b>"
+        "━━━━━━━━━━━━━━\n"
+        "Помогаю выбрать недвижимость и безопасно пройти путь "
+        "от первого вопроса до сделки.\n\n"
+        "<b>Выберите направление — расскажу подробнее.</b>"
     )
     await message.answer_photo(
         photo=WELCOME_PHOTO,
@@ -88,8 +86,7 @@ async def cmd_start(message: Message):
 async def cmd_menu(message: Message):
     text = (
         "✦  <b>Направления работы</b>\n\n"
-        "Выберите интересующую услугу. Если пока не знаете, "
-        "с чего начать, можно сразу написать Марии."
+        "Выберите услугу или свяжитесь с Марией напрямую."
     )
     await message.answer_photo(
         photo=WELCOME_PHOTO,
