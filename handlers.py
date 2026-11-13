@@ -7,45 +7,43 @@ from services_data import SERVICES
 
 router = Router()
 
-# Use the exact hero image URL from the business-card website.
+# Separate photo set for the regular bot. These images intentionally do not
+# repeat the photographs inside the Mini App / electronic business card.
 WELCOME_PHOTO = (
-    "https://images.pexels.com/photos/7534563/"
-    "pexels-photo-7534563.jpeg?auto=compress&cs=tinysrgb&w=1400"
+    "https://images.pexels.com/photos/7599735/"
+    "pexels-photo-7599735.jpeg?auto=compress&cs=tinysrgb&w=1200"
 )
 
 SERVICE_PHOTOS = {
-    "consult": "https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=1000",
-    "ipoteka": "https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1000",
-    "newbuild": "https://images.pexels.com/photos/30441428/pexels-photo-30441428.jpeg?auto=compress&cs=tinysrgb&w=1000",
-    "deals": "https://images.pexels.com/photos/6580378/pexels-photo-6580378.jpeg?auto=compress&cs=tinysrgb&w=1000",
-    "complex": "https://images.pexels.com/photos/8082227/pexels-photo-8082227.jpeg?auto=compress&cs=tinysrgb&w=1000",
-    "regions": "https://images.pexels.com/photos/7214456/pexels-photo-7214456.jpeg?auto=compress&cs=tinysrgb&w=1000",
-    "insurance": "https://images.pexels.com/photos/6797233/pexels-photo-6797233.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    "consult": "https://images.pexels.com/photos/7642008/pexels-photo-7642008.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "ipoteka": "https://images.pexels.com/photos/31221014/pexels-photo-31221014.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "newbuild": "https://images.pexels.com/photos/31015267/pexels-photo-31015267.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "deals": "https://images.pexels.com/photos/29726512/pexels-photo-29726512.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "complex": "https://images.pexels.com/photos/34135038/pexels-photo-34135038.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "regions": "https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "insurance": "https://images.pexels.com/photos/7736033/pexels-photo-7736033.jpeg?auto=compress&cs=tinysrgb&w=1200",
+}
+
+SERVICE_SHORT_TEXT = {
+    "consult": "Разберём задачу, бюджет и подходящие варианты.",
+    "ipoteka": "Подбор программы и сопровождение до одобрения.",
+    "newbuild": "Подбор новостройки, проверка условий и сопровождение до ключей.",
+    "deals": "Покупка и продажа квартир, домов и участков.",
+    "complex": "Наследство, доли и сделки с несколькими собственниками.",
+    "regions": "Подбор недвижимости в Москве, Санкт-Петербурге и на юге России.",
+    "insurance": "Защита недвижимости, отделки и имущества.",
 }
 
 
 def format_service(service_key: str) -> str:
     data = SERVICES[service_key]
-    lines = [
-        f"✦  <b>{data['title']}</b>",
-        "",
-        f"<i>{data['subtitle']}</i>",
-        "",
-        "<b>В СОСТАВ УСЛУГИ</b>",
-        "",
-    ]
-    for index, item in enumerate(data["items"], start=1):
-        clean_item = item.replace("▪️ ", "").replace("• ", "")
-        lines.append(f"<b>{index:02d}</b>  {clean_item}")
-    lines.extend([
-        "",
-        "━━━━━━━━━━━━━━",
-        f"<i>{data['footer']}</i>",
-        "",
-        "<b>Обсудим вашу задачу?</b>",
-        "Напишите Марии — подскажем, с чего начать.",
-    ])
-    return "\n".join(lines)
+    short_text = SERVICE_SHORT_TEXT.get(service_key, data["subtitle"])
+    return (
+        f"<b>✦  {data['title']}</b>\n"
+        f"<i>{short_text}</i>\n\n"
+        "Подробности и все условия — в мини-приложении.\n"
+        "<b>Обсудим вашу задачу?</b>"
+    )
 
 
 async def replace_with_photo(message: Message, photo: str, caption: str, reply_markup) -> None:
@@ -63,12 +61,11 @@ async def replace_with_photo(message: Message, photo: str, caption: str, reply_m
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    # Telegram displays this caption directly under the photo, in one compact
-    # message. Keep it deliberately short so the hero image remains dominant.
     caption = (
-        "<b>МАРИЯ МАРОЗ</b>  <i>· эксперт по недвижимости</i>\n"
-        "Помогаю выбрать недвижимость и пройти сделку спокойно и уверенно.\n"
-        "<i>Выберите направление ниже</i>"
+        "<b>МАРИЯ МАРОЗ</b>\n"
+        "<i>Эксперт по недвижимости</i>\n"
+        "Помогаю выбрать объект и спокойно пройти путь до сделки.\n"
+        "<i>Выберите направление ниже.</i>"
     )
     await message.answer_photo(
         photo=WELCOME_PHOTO,
@@ -82,7 +79,7 @@ async def cmd_start(message: Message):
 async def cmd_menu(message: Message):
     await message.answer_photo(
         photo=WELCOME_PHOTO,
-        caption="<b>МАРИЯ МАРОЗ</b>\n<i>Выберите направление работы</i>",
+        caption="<b>МАРИЯ МАРОЗ</b>\n<i>Выберите направление работы.</i>",
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
@@ -91,9 +88,8 @@ async def cmd_menu(message: Message):
 @router.message(Command("contact"))
 async def cmd_contact(message: Message):
     await message.answer(
-        "✦  <b>Связаться с Марией</b>\n\n"
-        "Расскажите в двух словах о вашей задаче. "
-        "Мария поможет определить дальнейшие шаги.",
+        "<b>Связаться с Марией</b>\n"
+        "Напишите удобным способом — обсудим вашу задачу.",
         reply_markup=contact_kb(),
         parse_mode="HTML",
     )
@@ -104,7 +100,7 @@ async def callback_menu(callback: CallbackQuery):
     await replace_with_photo(
         callback.message,
         WELCOME_PHOTO,
-        "<b>МАРИЯ МАРОЗ</b>\n<i>Выберите направление работы</i>",
+        "<b>МАРИЯ МАРОЗ</b>\n<i>Выберите направление работы.</i>",
         main_menu_kb(),
     )
     await callback.answer()
@@ -129,8 +125,7 @@ async def callback_service(callback: CallbackQuery):
 @router.message()
 async def any_message(message: Message):
     await message.answer(
-        "Спасибо за сообщение. Выберите направление в меню "
-        "или напишите Марии напрямую.",
+        "Выберите направление в меню или напишите Марии напрямую.",
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
