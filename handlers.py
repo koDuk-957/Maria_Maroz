@@ -15,13 +15,13 @@ WELCOME_PHOTO = (
 )
 
 SERVICE_PHOTOS = {
-    "consult": "https://images.pexels.com/photos/7642008/pexels-photo-7642008.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "ipoteka": "https://images.pexels.com/photos/31221014/pexels-photo-31221014.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "newbuild": "https://images.pexels.com/photos/31015267/pexels-photo-31015267.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "deals": "https://images.pexels.com/photos/29726512/pexels-photo-29726512.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "complex": "https://images.pexels.com/photos/34135038/pexels-photo-34135038.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "regions": "https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "insurance": "https://images.pexels.com/photos/7736033/pexels-photo-7736033.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "consult": "https://images.pexels.com/photos/5997965/pexels-photo-5997965.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "ipoteka": "https://images.pexels.com/photos/7167077/pexels-photo-7167077.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "newbuild": "https://images.pexels.com/photos/18822072/pexels-photo-18822072.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "deals": "https://images.pexels.com/photos/14921656/pexels-photo-14921656.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "complex": "https://images.pexels.com/photos/10610731/pexels-photo-10610731.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "regions": "https://images.pexels.com/photos/5033768/pexels-photo-5033768.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "insurance": "https://images.pexels.com/photos/6587864/pexels-photo-6587864.jpeg?auto=compress&cs=tinysrgb&w=1200",
 }
 
 SERVICE_SHORT_TEXT = {
@@ -64,7 +64,7 @@ async def cmd_start(message: Message):
     caption = (
         "<b>МАРИЯ МАРОЗ</b>\n"
         "<i>Эксперт по недвижимости</i>\n"
-        "Помогаю выбрать объект и спокойно пройти путь до сделки.\n"
+        "Подбор недвижимости и сопровождение сделок по всей России.\n"
         "<i>Выберите направление ниже.</i>"
     )
     await message.answer_photo(
