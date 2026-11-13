@@ -11,32 +11,32 @@ MAX_URL = "https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9W
 def _contact_buttons() -> list[InlineKeyboardButton]:
     return [
         InlineKeyboardButton(
-            text="Telegram",
+            text="↗  Telegram",
             url=f"https://t.me/{CONTACT_USERNAME}",
         ),
-        InlineKeyboardButton(text="MAX", url=MAX_URL),
+        InlineKeyboardButton(text="↗  MAX", url=MAX_URL),
     ]
-
-
-def _brand_links() -> list[InlineKeyboardButton]:
-    buttons = [InlineKeyboardButton(text="Сайт Марии", url=CARD_URL)]
-    # Preserve the current Mini App URL and entry point without changing its code.
-    if MINIAPP_URL:
-        buttons.append(
-            InlineKeyboardButton(
-                text="Мини-приложение",
-                web_app=WebAppInfo(url=MINIAPP_URL),
-            )
-        )
-    return buttons
 
 
 def main_menu_kb() -> InlineKeyboardMarkup:
+    # Keep the same familiar layout: brand links full-width, services in two
+    # columns, and contact actions side by side at the bottom.
+    rows = [
+        [InlineKeyboardButton(text="✦  Сайт-визитка", url=CARD_URL)],
+    ]
+
+    if MINIAPP_URL:
+        rows.append([
+            InlineKeyboardButton(
+                text="▣  Мини-приложение",
+                web_app=WebAppInfo(url=MINIAPP_URL),
+            )
+        ])
+
     service_buttons = [
-        InlineKeyboardButton(text=label, callback_data=f"service:{key}")
+        InlineKeyboardButton(text=f"·  {label}", callback_data=f"service:{key}")
         for key, label in SERVICE_BUTTONS
     ]
-    rows = [_brand_links()]
     rows.extend(
         service_buttons[index:index + 2]
         for index in range(0, len(service_buttons), 2)
@@ -49,8 +49,8 @@ def service_kb(service_key: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             _contact_buttons(),
-            [InlineKeyboardButton(text="← Все услуги", callback_data="menu")],
-            _brand_links(),
+            [InlineKeyboardButton(text="←  Все услуги", callback_data="menu")],
+            [InlineKeyboardButton(text="✦  Сайт Марии", url=CARD_URL)],
         ]
     )
 
