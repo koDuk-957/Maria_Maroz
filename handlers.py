@@ -4,7 +4,6 @@ from aiogram.filters import CommandStart, Command
 
 from keyboards import main_menu_kb, service_kb, contact_kb
 from services_data import SERVICES
-from config import CONTACT_USERNAME
 
 router = Router()
 
@@ -22,7 +21,7 @@ def format_service(service_key: str) -> str:
         "",
         f"<i>{data['subtitle']}</i>",
         "",
-        "<tg-spoiler>Что входит в сопровождение</tg-spoiler>",
+        "<b>В СОСТАВ УСЛУГИ</b>",
         "",
     ]
     for index, item in enumerate(data["items"], start=1):
