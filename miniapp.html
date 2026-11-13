@@ -1,9 +1,16 @@
+<!--
+  Отдельная статическая электронная визитка.
+  Этот файл разворачивается как отдельный Render Static Site из папки business-card.
+  Основной Telegram-бот и его index.html не изменяются.
+-->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Мария Мароз — Визитка</title>
+  <title>Мария Мароз — Эксперт по недвижимости</title>
+  <meta name="description" content="Мария Мароз — эксперт по недвижимости. Подбор объектов, ипотечное сопровождение, покупка и продажа недвижимости." />
+  <meta name="theme-color" content="#0a0a0a" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,9 +26,10 @@
       --gold-soft: rgba(201, 168, 108, 0.14);
       --gold-line: rgba(201, 168, 108, 0.35);
       --border: rgba(255,255,255,0.06);
-      --radius: 16px;
+      --radius: 18px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Outfit', system-ui, sans-serif;
       background: var(--bg);
@@ -29,68 +37,117 @@
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
-      padding-bottom: 24px;
+      padding-bottom: 110px;
     }
     a { color: inherit; text-decoration: none; }
-    .wrap { max-width: 440px; margin: 0 auto; padding: 0 16px; }
+    .wrap { max-width: 440px; margin: 0 auto; padding: 0 20px; }
 
-    .hero { padding: 28px 0 24px; text-align: center; position: relative; }
+    .hero {
+      padding: 52px 0 40px;
+      text-align: center;
+      position: relative;
+    }
     .hero::before {
-      content: ''; position: absolute; top: -10px; left: 50%;
-      transform: translateX(-50%); width: 140px; height: 140px;
-      background: radial-gradient(circle, rgba(201,168,108,0.1) 0%, transparent 70%);
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(201,168,108,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
     .avatar {
-      width: 72px; height: 72px; border-radius: 50%;
+      width: 92px; height: 92px;
+      border-radius: 50%;
       background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
       border: 1px solid var(--gold-line);
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 14px;
+      margin: 0 auto 22px;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 26px; font-weight: 600; color: var(--gold);
+      font-size: 32px; font-weight: 600;
+      color: var(--gold);
       position: relative; z-index: 1;
     }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; font-weight: 600; margin-bottom: 4px;
+      font-size: 36px; font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
       position: relative; z-index: 1;
     }
     .hero .role {
-      font-size: 11px; font-weight: 500;
+      font-size: 12px; font-weight: 500;
       letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 12px;
+      color: var(--gold);
+      margin-bottom: 18px;
     }
     .hero .tagline {
-      font-size: 13.5px; font-weight: 300;
-      color: var(--text-secondary); max-width: 280px;
-      margin: 0 auto; line-height: 1.55;
+      font-size: 15px; font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 300px; margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+    .btn-main {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: #000000; color: var(--gold);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600; font-size: 14px;
+      padding: 15px 28px; border-radius: 999px;
+      border: none; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(201, 168, 108, 0.18);
+    }
+    .btn-main svg { flex-shrink: 0; }
+    .contact-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .btn-max {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 50px; padding: 13px 22px; border-radius: 999px;
+      border: 1px solid var(--gold-line); background: var(--gold-soft);
+      color: var(--text); font: 600 14px 'Outfit', sans-serif;
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+    .btn-max:hover { transform: translateY(-2px); background: rgba(201,168,108,.22); border-color: var(--gold); }
+    .max-mark { width: 19px; height: 19px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--gold); border-radius: 6px; color: var(--gold); font-size: 11px; font-weight: 700; }
+    .bottom-bar .contact-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .bottom-bar .btn-main, .bottom-bar .btn-max { width: 100%; min-width: 0; padding: 14px 10px; font-size: 13px; }
+    @media (max-width: 360px) {
+      .bottom-bar { padding-left: 12px; padding-right: 12px; }
+      .bottom-bar .btn-main, .bottom-bar .btn-max { gap: 6px; font-size: 12px; }
     }
 
     .stats {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 8px; margin: 24px 0 28px;
+      gap: 10px; margin-bottom: 44px;
     }
     .stat {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 14px 6px; text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 8px; text-align: center;
     }
     .stat .num {
       font-family: 'Outfit', system-ui, sans-serif;
-      font-size: 18px; font-weight: 700; color: var(--gold);
+      font-size: 22px; font-weight: 700;
+      color: var(--gold);
       letter-spacing: -0.02em;
       font-variant-numeric: tabular-nums;
     }
     .stat .label {
-      font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--text-secondary); margin-top: 2px; font-weight: 500;
+      font-size: 10px; letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-top: 4px; font-weight: 500;
     }
 
     .section-label {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--text-secondary); margin-bottom: 12px;
-      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
     }
 
     .gallery { margin: 42px 0 34px; }
@@ -149,83 +206,278 @@
     .gallery-top { margin: 18px 0 34px; }
     .gallery-bottom { margin: 40px 0 26px; }
 
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-    .services { display: flex; flex-direction: column; gap: 8px; }
-    .service {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden;
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
     }
+
+    .services { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+    .service {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .service:hover { border-color: var(--gold-line); background: var(--surface-hover); }
     .service.open { border-color: var(--gold-line); }
     .service-head {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 14px 12px; cursor: pointer; gap: 10px; user-select: none;
+      padding: 18px 18px 16px; cursor: pointer; gap: 12px; user-select: none;
     }
-    .service-head h3 { font-size: 14.5px; font-weight: 600; flex: 1; }
+    .service-head h3 {
+      font-size: 15.5px; font-weight: 600;
+      letter-spacing: -0.01em; flex: 1;
+    }
     .service-head .badge {
-      font-size: 9px; font-weight: 600; letter-spacing: 0.04em;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
       background: var(--gold-soft); color: var(--gold);
-      padding: 3px 8px; border-radius: 999px;
+      padding: 4px 10px; border-radius: 999px; white-space: nowrap;
     }
     .service-head .chevron {
-      width: 16px; height: 16px; color: var(--text-secondary);
+      width: 18px; height: 18px;
+      color: var(--text-secondary);
       transition: transform 0.3s, color 0.2s; flex-shrink: 0;
     }
     .service.open .chevron { transform: rotate(180deg); color: var(--gold); }
     .service-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    .service.open .service-body { max-height: 900px; }
+    .service.open .service-body { max-height: 920px; }
     .service-content {
-      padding: 0 14px 16px; border-top: 1px solid var(--border); padding-top: 12px;
+      padding: 0 18px 20px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
     }
     .service-content .sub {
-      font-size: 12.5px; color: var(--text-secondary);
-      margin-bottom: 12px; font-weight: 300;
+      font-size: 13.5px; color: var(--text-secondary);
+      margin-bottom: 14px; line-height: 1.55; font-weight: 300;
     }
-    .service-content ul { list-style: none; margin-bottom: 12px; }
+    .service-content ul { list-style: none; margin-bottom: 16px; }
     .service-content li {
-      display: flex; gap: 10px; font-size: 13px;
-      padding: 5px 0; color: #d8d4cc;
+      display: flex; gap: 12px; font-size: 14px;
+      padding: 7px 0; color: #d8d4cc;
     }
     .service-content li .n {
-      color: var(--gold); font-weight: 600; width: 20px; flex-shrink: 0; font-size: 11px;
+      color: var(--gold); font-weight: 600;
+      width: 22px; flex-shrink: 0; font-size: 12px;
     }
     .service-content .note {
       background: rgba(201, 168, 108, 0.07);
       border: 1px solid var(--gold-line);
-      border-radius: 10px; padding: 10px 12px;
-      font-size: 12px; color: #c8c3b8; line-height: 1.45;
+      border-radius: 12px;
+      padding: 13px 14px; font-size: 13px;
+      color: #c8c3b8; line-height: 1.5;
     }
     .service-content .note strong { color: var(--gold); font-weight: 600; }
 
-    body { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
-    .mini-contact {
-      position: fixed; left: 0; right: 0; bottom: 0; z-index: 100;
-      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-      background: rgba(10,10,10,.96); border-top: 1px solid var(--gold-line);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+      padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+      z-index: 100;
     }
-    .mini-contact a {
-      display: flex; justify-content: center; align-items: center;
-      width: 100%; max-width: 408px; margin: 0 auto; padding: 15px 20px;
-      border-radius: 999px; background: #000000; color: var(--gold);
-      border: 1px solid var(--gold-line); font-size: 14px;
-      font-family: 'Outfit', sans-serif; font-weight: 600;
-      letter-spacing: .025em; box-shadow: 0 6px 24px rgba(0,0,0,.45);
-    }
-    .mini-contact a:active { transform: scale(.985); }
+    .bottom-bar .inner { max-width: 440px; margin: 0 auto; }
+    .bottom-bar .btn-main { width: 100%; padding: 15px 20px; font-size: 14px; }
+
     footer {
-      text-align: center; padding: 24px 0 8px;
-      font-size: 11px; color: var(--text-secondary);
+      text-align: center; padding: 8px 0 12px;
+      font-size: 12px; color: var(--text-secondary);
     }
+    footer a { color: var(--gold); font-weight: 500; }
+
+    /* Premium presentation */
+    .hero { padding: 62px 0 46px; }
+    .hero::after { content: ''; position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); width: 54px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .hero-kicker { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; color: var(--text-secondary); font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+    .hero-kicker::before, .hero-kicker::after { content: ''; width: 20px; height: 1px; background: var(--gold-line); }
+    .avatar { width: 104px; height: 104px; margin-bottom: 20px; box-shadow: 0 0 0 7px rgba(201,168,108,.045), 0 16px 42px rgba(0,0,0,.32); font-size: 36px; letter-spacing: .04em; }
+    .hero h1 { font-size: clamp(38px, 10vw, 44px); line-height: 1.04; margin-bottom: 9px; }
+    .hero .role { font-size: 10px; letter-spacing: .19em; margin-bottom: 17px; }
+    .hero .tagline { max-width: 325px; font-size: 14px; margin-bottom: 25px; }
+    .contact-actions { gap: 11px; }
+    .hero .btn-main, .hero .btn-max { min-height: 52px; min-width: 142px; padding: 14px 22px; border: 1px solid var(--gold-line); font-size: 13px; letter-spacing: .02em; }
+    .hero .btn-main { background: linear-gradient(135deg, #d8bb83, #b18b4e); color: #17130d; box-shadow: 0 8px 24px rgba(201,168,108,.13); }
+    .hero .btn-main:hover { box-shadow: 0 12px 30px rgba(201,168,108,.22); }
+    .hero .btn-max { background: rgba(201,168,108,.055); color: var(--text); }
+    .section-block { margin: 0 0 46px; }
+    .section-heading { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 29px; line-height: 1.08; font-weight: 600; color: var(--text); margin: 0 0 8px; }
+    .section-lead { color: var(--text-secondary); font-size: 13px; font-weight: 300; line-height: 1.65; margin: 0 0 18px; }
+    .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .benefit { min-height: 138px; padding: 17px 15px; border-radius: 15px; border: 1px solid var(--border); background: linear-gradient(145deg, #191919, #111); }
+    .benefit-index { color: var(--gold); font-size: 10px; letter-spacing: .16em; font-weight: 600; margin-bottom: 13px; }
+    .benefit h3 { font-size: 13px; line-height: 1.35; font-weight: 600; margin-bottom: 6px; }
+    .benefit p { color: var(--text-secondary); font-size: 11px; line-height: 1.5; font-weight: 300; }
+    .reviews-panel { border: 1px solid var(--gold-line); border-radius: 18px; padding: 22px 19px; background: radial-gradient(ellipse at top right, rgba(201,168,108,.09), transparent 65%), var(--surface); }
+    .reviews-mark { color: var(--gold); font-family: Georgia, serif; font-size: 36px; line-height: .8; margin-bottom: 12px; }
+    .reviews-panel p { color: var(--text-secondary); font-size: 13px; line-height: 1.65; font-weight: 300; }
+    .reviews-panel strong { color: var(--text); font-weight: 500; }
+    .contact-panel { border: 1px solid var(--gold-line); border-radius: 18px; padding: 22px 18px; background: linear-gradient(145deg, rgba(201,168,108,.09), rgba(22,22,22,.96) 55%); }
+    .contact-panel .section-heading { margin-bottom: 7px; }
+    .contact-panel p { color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 18px; }
+    .contact-list { display: grid; gap: 9px; }
+    .contact-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 14px; border: 1px solid var(--border); border-radius: 12px; background: rgba(0,0,0,.22); font-size: 13px; font-weight: 500; transition: border-color .2s, background .2s; }
+    .contact-link:hover { border-color: var(--gold-line); background: rgba(201,168,108,.07); }
+    .contact-link span:last-child { color: var(--gold); font-size: 11px; }
+    .service-head:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .bottom-bar { padding-top: 11px; }
+    .bottom-bar .btn-main { width: auto; }
+    @media (max-width: 360px) { .hero .btn-main, .hero .btn-max { min-width: 0; flex: 1; padding-left: 14px; padding-right: 14px; } .benefit { padding: 15px 12px; } }
+
+
+    /* Editorial real-estate layout */
+    .wrap { max-width: 1180px; padding: 0 34px; }
+    body { background: #0c0c0b; }
+    .hero {
+      min-height: 610px; display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; text-align: left; padding: 0; margin: 26px 0 58px;
+      overflow: hidden; border: 1px solid rgba(201,168,108,.18); border-radius: 24px;
+      background: #121210;
+    }
+    .hero-photo { position: relative; align-self: stretch; min-height: 610px; order: 2; }
+    .hero-photo img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; display: block; }
+    .hero-photo-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(18,18,16,0), rgba(18,18,16,.18)); }
+    .hero-copy { position: relative; z-index: 1; padding: 64px 8% 64px 9%; }
+    .hero::before, .hero::after { display: none; }
+    .hero-kicker { justify-content: flex-start; margin-bottom: 25px; }
+    .avatar { margin: 0 0 25px; width: 112px; height: 112px; }
+    .hero h1 { font-size: clamp(44px, 5vw, 68px); line-height: .98; margin-bottom: 14px; }
+    .hero .role { font-size: 11px; }
+    .hero .tagline { max-width: 430px; margin: 0 0 30px; font-size: 17px; line-height: 1.7; }
+    .contact-actions { justify-content: flex-start; }
+    .hero .btn-main, .hero .btn-max { min-height: 56px; min-width: 158px; }
+    .stats { grid-template-columns: repeat(3,1fr); gap: 16px; margin: 0 0 76px; }
+    .stat { padding: 28px 18px; border-radius: 16px; text-align: left; }
+    .stat .num { font-size: 32px; }
+    .stat .label { font-size: 11px; }
+    .gallery-top { margin: 0 0 72px; }
+    .gallery-top .gallery-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .gallery-card { border-radius: 18px; }
+    .gallery-card img { aspect-ratio: 16 / 9; }
+    .gallery-card figcaption { min-height: 54px; padding: 15px 18px; font-size: 13px; }
+    .section-block { margin-bottom: 76px; }
+    .section-heading { font-size: clamp(34px,4vw,48px); }
+    .section-lead { font-size: 16px; max-width: 760px; }
+    .benefit-grid { grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .benefit { min-height: 190px; padding: 24px 20px; border-radius: 17px; }
+    .benefit h3 { font-size: 16px; }
+    .benefit p { font-size: 13px; line-height: 1.65; }
+    .benefit-index { margin-bottom: 22px; }
+    .editorial-section {
+      display: grid; grid-template-columns: 1.08fr .92fr; align-items: center;
+      gap: clamp(28px,6vw,86px); margin: 0 0 82px;
+    }
+    .editorial-reverse { grid-template-columns: .92fr 1.08fr; }
+    .editorial-reverse .editorial-image { order: 2; }
+    .editorial-image { overflow: hidden; border-radius: 20px; min-height: 390px; background: #171715; }
+    .editorial-image img { display: block; width: 100%; height: 100%; min-height: 390px; object-fit: cover; }
+    .editorial-copy { padding: 20px 0; }
+    .editorial-copy .section-label { margin-bottom: 20px; }
+    .editorial-copy h2 { font-family: 'Cormorant Garamond',Georgia,serif; font-size: clamp(36px,4.3vw,54px); line-height: 1.04; font-weight: 600; margin-bottom: 20px; max-width: 520px; }
+    .editorial-copy p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; font-weight: 300; max-width: 510px; margin-bottom: 25px; }
+    .editorial-link { display: inline-flex; gap: 18px; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--gold-line); color: var(--gold); font-size: 13px; font-weight: 600; }
+    .services { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 78px; }
+    .service { display: grid; grid-template-columns: 42% 1fr; grid-template-rows: auto 1fr; min-height: 250px; border-radius: 18px; }
+    .service-image { grid-column: 1; grid-row: 1 / span 2; min-height: 250px; overflow: hidden; }
+    .service-image img { display: block; width: 100%; height: 100%; min-height: 250px; object-fit: cover; }
+    .service-head { grid-column: 2; grid-row: 1; align-self: start; padding: 24px 20px 16px; }
+    .service-head h3 { font-size: 17px; line-height: 1.35; }
+    .service-body { grid-column: 2; grid-row: 2; }
+    .service.open .service-body { max-height: 920px; }
+    .service-content { padding: 0 20px 22px; }
+    .service-content .sub { font-size: 14px; }
+    .service-content li { font-size: 13px; }
+    .service-content .note { font-size: 12px; }
+    .reviews-panel { padding: 34px; border-radius: 20px; }
+    .reviews-panel p { font-size: 16px; }
+    .contact-panel { padding: 34px; }
+    .contact-panel p { font-size: 15px; }
+    .contact-list { grid-template-columns: 1fr 1fr; }
+    .contact-link { padding: 18px; font-size: 14px; }
+    .gallery-bottom .gallery-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .gallery-bottom .gallery-card img { aspect-ratio: 16 / 9; }
+    .bottom-bar .inner { max-width: 1180px; }
+    .bottom-bar { padding-left: max(34px, calc((100vw - 1180px)/2 + 34px)); padding-right: max(34px, calc((100vw - 1180px)/2 + 34px)); }
+    @media (max-width: 760px) {
+      .wrap { max-width: 520px; padding: 0 18px; }
+      .hero { display: flex; flex-direction: column; margin: 10px 0 42px; border-radius: 18px; }
+      .hero-photo { order: 0; width: 100%; min-height: 270px; height: 270px; }
+      .hero-photo-shade { background: linear-gradient(0deg, rgba(18,18,16,.45), transparent 55%); }
+      .hero-copy { width: 100%; padding: 28px 24px 30px; }
+      .hero-kicker { font-size: 9px; letter-spacing: .14em; }
+      .avatar { width: 88px; height: 88px; font-size: 30px; margin-bottom: 18px; }
+      .hero h1 { font-size: 43px; }
+      .hero .tagline { font-size: 15px; }
+      .stats { gap: 8px; margin-bottom: 48px; }
+      .stat { padding: 18px 10px; text-align: center; }
+      .stat .num { font-size: 23px; }
+      .stat .label { font-size: 9px; }
+      .gallery-top { margin-bottom: 50px; }
+      .gallery-top .gallery-grid, .gallery-bottom .gallery-grid { gap: 9px; }
+      .gallery-card img { aspect-ratio: 4 / 3; }
+      .gallery-card figcaption { padding: 9px; min-height: 42px; font-size: 10px; }
+      .editorial-section, .editorial-reverse { display: flex; flex-direction: column; gap: 20px; margin-bottom: 52px; align-items: stretch; }
+      .editorial-reverse .editorial-image { order: 0; }
+      .editorial-image, .editorial-image img { min-height: 260px; height: 260px; }
+      .editorial-copy { padding: 0 2px; }
+      .editorial-copy h2 { font-size: 37px; }
+      .editorial-copy p { font-size: 14px; }
+      .section-block { margin-bottom: 52px; }
+      .section-heading { font-size: 34px; }
+      .section-lead { font-size: 14px; }
+      .benefit-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
+      .benefit { min-height: 150px; padding: 17px 14px; }
+      .benefit h3 { font-size: 13px; }
+      .benefit p { font-size: 11px; }
+      .services { display: flex; flex-direction: column; gap: 12px; margin-bottom: 54px; }
+      .service { grid-template-columns: 34% 1fr; min-height: 210px; }
+      .service-image, .service-image img { min-height: 210px; }
+      .service-head { padding: 18px 14px 12px; gap: 7px; flex-wrap: wrap; }
+      .service-head h3 { font-size: 14px; }
+      .service-head .badge { font-size: 9px; }
+      .service-content { padding: 0 14px 16px; }
+      .service-content .sub { font-size: 12px; }
+      .service-content li { font-size: 11px; gap: 7px; }
+      .service-content .note { font-size: 11px; }
+      .reviews-panel, .contact-panel { padding: 22px 18px; }
+      .reviews-panel p { font-size: 13px; }
+      .contact-list { grid-template-columns: 1fr; }
+      .bottom-bar { padding-left: 14px; padding-right: 14px; }
+    }
+    @media (max-width: 380px) {
+      .service { grid-template-columns: 1fr; }
+      .service-image, .service-image img { min-height: 160px; height: 160px; }
+      .service-head, .service-body { grid-column: 1; }
+      .service-head { grid-row: 2; }
+      .service-body { grid-row: 3; }
+      .service-image { grid-row: 1; }
+      .benefit-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
-      <div class="avatar">ММ</div>
+      <div class="hero-photo" aria-hidden="true">
+        <img src="https://images.pexels.com/photos/7534563/pexels-photo-7534563.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="" fetchpriority="high">
+        <div class="hero-photo-shade"></div>
+      </div>
+      <div class="hero-copy">
+      <div class="hero-kicker">Недвижимость · сопровождение сделок</div>
+      <div class="avatar" aria-label="Инициалы Марии Мароз">ММ</div>
       <h1>Мария Мароз</h1>
       <div class="role">Эксперт по недвижимости</div>
-      <p class="tagline">Помогаю выбрать недвижимость и безопасно пройти путь до сделки</p>
+      <p class="tagline">Помогаю выбрать недвижимость и безопасно пройти путь от первого вопроса до сделки</p>
+      <div class="contact-actions">
+        <a class="btn-main" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.24 0 .38z"/></svg>
+          Telegram
+        </a>
+        <a class="btn-max" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener">
+          <span class="max-mark" aria-hidden="true">M</span> MAX
+        </a>
+      </div>
     </section>
 
     <section class="gallery gallery-top" aria-label="Счастливые покупатели и новые дома">
@@ -246,66 +498,113 @@
       <div class="stat"><div class="num">0 ₽</div><div class="label">консультация</div></div>
     </div>
 
+
+    <section class="editorial-section">
+      <div class="editorial-image">
+        <img src="https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Светлая современная квартира с просторной кухней и гостиной" loading="lazy" decoding="async">
+      </div>
+      <div class="editorial-copy">
+        <div class="section-label">Подбор недвижимости</div>
+        <h2>Не просто найти квартиру. Найти подходящее место для жизни.</h2>
+        <p>Учитываем ваш образ жизни, бюджет, планы на будущее и важные детали. Сравниваем не только цену и метраж, но и локацию, планировку, окружение и условия покупки.</p>
+        <a class="editorial-link" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">Обсудить задачу <span>↗</span></a>
+      </div>
+    </section>
+    <section class="editorial-section editorial-reverse">
+      <div class="editorial-image">
+        <img src="https://images.pexels.com/photos/30441428/pexels-photo-30441428.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Интерьер современной квартиры в спокойных натуральных оттенках" loading="lazy" decoding="async">
+      </div>
+      <div class="editorial-copy">
+        <div class="section-label">Сопровождение сделки</div>
+        <h2>Спокойствие складывается из деталей.</h2>
+        <p>Проверка документов, обсуждение условий, координация участников и контроль этапов помогают пройти сделку последовательно и понимать, что происходит на каждом шаге.</p>
+        <a class="editorial-link" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener">Задать вопрос в MAX <span>↗</span></a>
+      </div>
+    </section>
+    <section class="editorial-section">
+      <div class="editorial-image">
+        <img src="https://images.pexels.com/photos/8082227/pexels-photo-8082227.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Просторная квартира с современным интерьером" loading="lazy" decoding="async">
+      </div>
+      <div class="editorial-copy">
+        <div class="section-label">Покупка и продажа</div>
+        <h2>От первого разговора до передачи ключей.</h2>
+        <p>Выстраиваем понятный маршрут: определяем цель, выбираем стратегию, анализируем варианты, согласуем условия и сопровождаем процесс до завершения сделки.</p>
+        <a class="editorial-link" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">Связаться с Марией <span>↗</span></a>
+      </div>
+    </section>
+
+    <section class="section-block" aria-labelledby="benefits-title">
+      <div class="section-label">Подход к работе</div>
+      <h2 class="section-heading" id="benefits-title">Важные решения — с понятным планом</h2>
+      <p class="section-lead">Сначала разбираемся в вашей ситуации, затем выбираем подходящий сценарий и последовательно проходим каждый этап.</p>
+      <div class="benefit-grid">
+        <article class="benefit"><div class="benefit-index">01 / ПОДБОР</div><h3>Решение под вашу задачу</h3><p>Учитываем бюджет, сроки, цели и важные условия.</p></article>
+        <article class="benefit"><div class="benefit-index">02 / ПРОВЕРКА</div><h3>Внимание к деталям</h3><p>Разбираем документы, условия и возможные риски.</p></article>
+        <article class="benefit"><div class="benefit-index">03 / ПЕРЕГОВОРЫ</div><h3>Согласование условий</h3><p>Помогаем сравнить варианты и договориться о существенных пунктах.</p></article>
+        <article class="benefit"><div class="benefit-index">04 / СОПРОВОЖДЕНИЕ</div><h3>От первого вопроса до сделки</h3><p>Координируем процесс и держим в фокусе следующие шаги.</p></article>
+      </div>
+    </section>
+
     <div class="section-label">Услуги</div>
     <div class="services">
 
-      <div class="service open">
+      <div class="service open"><div class="service-image"><img src="https://images.pexels.com/photos/7534563/pexels-photo-7534563.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Светлая современная гостиная" loading="lazy" decoding="async"></div>
         <div class="service-head" onclick="toggle(this)">
           <h3>Первичная консультация</h3>
           <span class="badge">бесплатно</span>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <div class="service-body"><div class="service-content">
-          <p class="sub">Разбираем задачу и определяем план при намерении работать вместе</p>
+          <p class="sub">Разбираем задачу и определяем дальнейший план при намерении работать вместе</p>
           <ul>
             <li><span class="n">01</span> Уточнение цели и ограничений</li>
             <li><span class="n">02</span> Предварительная оценка возможностей</li>
             <li><span class="n">03</span> Варианты решения и риски</li>
             <li><span class="n">04</span> Формат и этапы сотрудничества</li>
           </ul>
-          <div class="note">Точка входа — <strong>без обязательств</strong>.</div>
+          <div class="note">Точка входа в работу с объектом или сделкой — <strong>без обязательств</strong>.</div>
         </div></div>
       </div>
 
-      <div class="service">
+      <div class="service"><div class="service-image"><img src="https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Современная кухня и гостиная" loading="lazy" decoding="async"></div>
         <div class="service-head" onclick="toggle(this)">
           <h3>Ипотечное сопровождение</h3>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <div class="service-body"><div class="service-content">
-          <p class="sub">Семейная, военная, IT-ипотека и банковские программы</p>
+          <p class="sub">Семейная, военная, IT-ипотека и актуальные банковские программы</p>
           <ul>
             <li><span class="n">01</span> Подбор программы под ваш профиль</li>
-            <li><span class="n">02</span> Нестандартная кредитная история</li>
-            <li><span class="n">03</span> Разбор отказов и пути устранения</li>
-            <li><span class="n">04</span> Подготовка пакета до одобрения</li>
+            <li><span class="n">02</span> Работа с нестандартной кредитной историей</li>
+            <li><span class="n">03</span> Разбор отказов и пути их устранения</li>
+            <li><span class="n">04</span> Подготовка пакета и ведение до одобрения</li>
           </ul>
-          <div class="note">Работа с банками <strong>под вашу задачу</strong>.</div>
+          <div class="note">Взаимодействие с банками и брокером <strong>под конкретную задачу</strong>.</div>
         </div></div>
       </div>
 
-      <div class="service">
+      <div class="service"><div class="service-image"><img src="https://images.pexels.com/photos/30441428/pexels-photo-30441428.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Уютный интерьер квартиры" loading="lazy" decoding="async"></div>
         <div class="service-head" onclick="toggle(this)">
           <h3>Покупка в новостройке</h3>
           <span class="badge">0 ₽</span>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <div class="service-body"><div class="service-content">
-          <p class="sub">Услуги покупателя без доп. оплаты при сделке через меня</p>
+          <p class="sub">Услуги покупателя — без дополнительной оплаты при сделке через меня</p>
           <ul>
-            <li><span class="n">01</span> Сравнение условий застройщиков</li>
+            <li><span class="n">01</span> Сравнение условий у застройщиков</li>
             <li><span class="n">02</span> Оценка комплекса и локации</li>
-            <li><span class="n">03</span> Подбор под бюджет и сценарий</li>
-            <li><span class="n">04</span> Анализ цен и планировок</li>
-            <li><span class="n">05</span> Акции и закрытые предложения</li>
-            <li><span class="n">06</span> Проверка документов и ДДУ</li>
-            <li><span class="n">07</span> Сопровождение до ключей</li>
+            <li><span class="n">03</span> Подбор квартиры под бюджет и сценарий</li>
+            <li><span class="n">04</span> Анализ цен, планировок и итоговой стоимости</li>
+            <li><span class="n">05</span> Актуальные акции и закрытые предложения</li>
+            <li><span class="n">06</span> Проверка документов и условий ДДУ</li>
+            <li><span class="n">07</span> Сопровождение до передачи ключей</li>
           </ul>
-          <div class="note">Спеццена + сопровождение <strong>в подарок</strong>.</div>
+          <div class="note">Специальная цена от застройщика + полное сопровождение <strong>в подарок</strong>.</div>
         </div></div>
       </div>
 
-      <div class="service">
+      <div class="service"><div class="service-image"><img src="https://images.pexels.com/photos/6580378/pexels-photo-6580378.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Современная квартира с открытой планировкой" loading="lazy" decoding="async"></div>
         <div class="service-head" onclick="toggle(this)">
           <h3>Сделки на вторичном рынке</h3>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -315,33 +614,33 @@
           <ul>
             <li><span class="n">01</span> Оценка рыночной стоимости</li>
             <li><span class="n">02</span> Стратегия продажи или поиска</li>
-            <li><span class="n">03</span> Переговоры и выгодные условия</li>
-            <li><span class="n">04</span> Юридическая проверка</li>
-            <li><span class="n">05</span> Показы и подготовка к сделке</li>
-            <li><span class="n">06</span> Ведение до регистрации</li>
+            <li><span class="n">03</span> Переговоры и фиксация выгодных условий</li>
+            <li><span class="n">04</span> Юридическая проверка и риски</li>
+            <li><span class="n">05</span> Организация показов и подготовка к сделке</li>
+            <li><span class="n">06</span> Ведение до регистрации и передачи ключей</li>
           </ul>
-          <div class="note"><strong>360+</strong> сделок · рекорд <strong>14 дней</strong>.</div>
+          <div class="note"><strong>360+</strong> закрытых сделок. Рекорд — <strong>14 дней</strong> от первого контакта.</div>
         </div></div>
       </div>
 
-      <div class="service">
+      <div class="service"><div class="service-image"><img src="https://images.pexels.com/photos/8082227/pexels-photo-8082227.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Просторный интерьер квартиры" loading="lazy" decoding="async"></div>
         <div class="service-head" onclick="toggle(this)">
-          <h3>Нестандартные сделки</h3>
+          <h3>Нестандартные и сложные сделки</h3>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <div class="service-body"><div class="service-content">
-          <p class="sub">Наследство, доли, несколько собственников, иностранцы</p>
+          <p class="sub">Наследство, доли, несколько собственников, доверенности, иностранные граждане</p>
           <ul>
-            <li><span class="n">01</span> Анализ документов</li>
-            <li><span class="n">02</span> Безопасное правовое решение</li>
-            <li><span class="n">03</span> Согласование интересов</li>
-            <li><span class="n">04</span> Организация со специалистами</li>
+            <li><span class="n">01</span> Анализ документов и обстоятельств</li>
+            <li><span class="n">02</span> Поиск безопасного правового решения</li>
+            <li><span class="n">03</span> Согласование интересов сторон</li>
+            <li><span class="n">04</span> Организация сделки с нужными специалистами</li>
           </ul>
-          <div class="note">Опыт с <strong>несколькими собственниками</strong> и наследством.</div>
+          <div class="note">Опыт работы с <strong>несколькими собственниками</strong>, наследством и иностранцами.</div>
         </div></div>
       </div>
 
-      <div class="service">
+      <div class="service"><div class="service-image"><img src="https://images.pexels.com/photos/7214456/pexels-photo-7214456.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Современное жилое пространство" loading="lazy" decoding="async"></div>
         <div class="service-head" onclick="toggle(this)">
           <h3>Объекты по всей России</h3>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -349,17 +648,17 @@
         <div class="service-body"><div class="service-content">
           <p class="sub">Москва · Санкт-Петербург · Юг</p>
           <ul>
-            <li><span class="n">01</span> Актуальные предложения</li>
-            <li><span class="n">02</span> Для жизни и отдыха</li>
+            <li><span class="n">01</span> Подборка актуальных предложений</li>
+            <li><span class="n">02</span> Варианты для жизни и отдыха</li>
             <li><span class="n">03</span> Спецусловия и закрытые лоты</li>
-            <li><span class="n">04</span> Сравнение условий</li>
-            <li><span class="n">05</span> Дистанционное оформление</li>
+            <li><span class="n">04</span> Сравнение параметров и условий покупки</li>
+            <li><span class="n">05</span> Дистанционное оформление сделки</li>
           </ul>
-          <div class="note">От центра до моря — <strong>проверенные варианты</strong>.</div>
+          <div class="note">От квартиры в центре до объекта у моря — <strong>проверенные варианты</strong>.</div>
         </div></div>
       </div>
 
-      <div class="service">
+      <div class="service"><div class="service-image"><img src="https://images.pexels.com/photos/6797233/pexels-photo-6797233.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Современный жилой дом" loading="lazy" decoding="async"></div>
         <div class="service-head" onclick="toggle(this)">
           <h3>Страхование объекта</h3>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -367,18 +666,37 @@
         <div class="service-body"><div class="service-content">
           <p class="sub">Защита недвижимости и имущества</p>
           <ul>
-            <li><span class="n">01</span> Пожар, затопление и иные риски</li>
-            <li><span class="n">02</span> Отделка, мебель и техника</li>
+            <li><span class="n">01</span> Покрытие от пожара, затопления и иных рисков</li>
+            <li><span class="n">02</span> Защита отделки, мебели и техники</li>
             <li><span class="n">03</span> Ответственность перед соседями</li>
             <li><span class="n">04</span> Дополнительные риски при владении недвижимостью</li>
-            <li><span class="n">05</span> Оформление и сопровождение</li>
+            <li><span class="n">05</span> Помощь в оформлении и при страховом случае</li>
           </ul>
-          <div class="note"><strong>Дополнительная защита</strong> капитала.</div>
+          <div class="note"><strong>Дополнительный уровень защиты</strong> имущества и капитала.</div>
         </div></div>
       </div>
 
     </div>
 
+
+
+    <section class="section-block" aria-labelledby="reviews-title">
+      <div class="section-label">Обратная связь</div>
+      <h2 class="section-heading" id="reviews-title">Отзывы клиентов</h2>
+      <div class="reviews-panel">
+        <div class="reviews-mark" aria-hidden="true">“</div>
+        <p><strong>Здесь будут реальные отзывы клиентов.</strong><br>Добавим опубликованные отзывы и ссылки на их источники после согласования материалов. Неподтверждённые цитаты и оценки размещать не будем.</p>
+      </div>
+    </section>
+    <section class="section-block contact-panel" aria-labelledby="contacts-title">
+      <div class="section-label">Связаться</div>
+      <h2 class="section-heading" id="contacts-title">Обсудим вашу задачу</h2>
+      <p>Напишите удобным способом. Можно начать с короткого вопроса — сориентирую по дальнейшим шагам.</p>
+      <div class="contact-list">
+        <a class="contact-link" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener"><span>Telegram · @Maroz_Maria</span><span>Написать ↗</span></a>
+        <a class="contact-link" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener"><span>MAX</span><span>Написать ↗</span></a>
+      </div>
+    </section>
 
     <section class="gallery gallery-bottom" aria-label="Современные дома и архитектура">
       <div class="section-label">Пространство для новой жизни</div>
@@ -390,8 +708,21 @@
           <figcaption>Дома, в которых хочется жить</figcaption>
         </figure></div>
     </section>
-    <div class="mini-contact"><a href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">Написать Марии</a></div>
-    <footer class="signature"><span class="signature-name">Мария Мароз</span><a class="signature-handle" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">@Maroz_Maria</a></footer>
+    <footer class="signature"><span class="signature-name">Мария Мароз</span><a class="signature-handle" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">Telegram · @Maroz_Maria</a><br><a class="signature-handle" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener">Связаться в MAX</a></footer>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="inner">
+      <div class="contact-actions">
+        <a class="btn-main" href="https://t.me/Maroz_Maria" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06-.01.24 0 .38z"/></svg>
+          Telegram
+        </a>
+        <a class="btn-max" href="https://max.ru/u/f9LHodD0cOIjPI4i_gTcSL_cyTen1knHz2e9woaTcjSEcXmEfE9WLhDpj9g" target="_blank" rel="noopener">
+          <span class="max-mark" aria-hidden="true">M</span> MAX
+        </a>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -401,7 +732,6 @@
       tg.expand();
       tg.setHeaderColor('#0a0a0a');
       tg.setBackgroundColor('#0a0a0a');
-      // Собственная закреплённая HTML-кнопка не зависит от цветов темы Telegram.
       tg.MainButton.hide();
     }
     function toggle(el) {
