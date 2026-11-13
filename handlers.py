@@ -1,6 +1,7 @@
 from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, InputMediaPhoto
 from aiogram.filters import CommandStart, Command
+from aiogram.exceptions import TelegramAPIError
 
 from keyboards import main_menu_kb, service_kb, contact_kb
 from services_data import SERVICES
@@ -46,30 +47,56 @@ def format_service(service_key: str) -> str:
     )
 
 
-async def replace_with_photo(message: Message, photo: str, caption: str, reply_markup) -> None:
-    await message.answer_photo(
-        photo=photo,
-        caption=caption,
-        reply_markup=reply_markup,
-        parse_mode="HTML",
-    )
+WELCOME_CAPTION = (
+    "<b>МАРИЯ МАРОЗ</b>\n"
+    "<i>Эксперт по недвижимости</i>\n"
+    "Подбор недвижимости и сопровождение сделок по всей России.\n"
+    "<i>Выберите направление ниже.</i>"
+)
+
+
+async def show_menu_in_place(
+    message: Message,
+    photo: str,
+    caption: str,
+    reply_markup,
+) -> None:
+    """Edit the existing menu card; only send a replacement if editing fails."""
     try:
-        await message.delete()
-    except Exception:
-        pass
+        await message.edit_media(
+            media=InputMediaPhoto(
+                media=photo,
+                caption=caption,
+                parse_mode="HTML",
+            ),
+            reply_markup=reply_markup,
+        )
+        return
+    except TelegramAPIError:
+        # Some older menu messages may be text-only or otherwise not editable
+        # as media. Send the replacement first, then remove only that old
+        # bot-generated menu message. Never delete a user's message here.
+        replacement = await message.answer_photo(
+            photo=photo,
+            caption=caption,
+            reply_markup=reply_markup,
+            parse_mode="HTML",
+        )
+        try:
+            await message.delete()
+        except TelegramAPIError:
+            # If Telegram refuses deletion, keep the new working menu rather
+            # than risk losing navigation.
+            pass
 
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    caption = (
-        "<b>МАРИЯ МАРОЗ</b>\n"
-        "<i>Эксперт по недвижимости</i>\n"
-        "Подбор недвижимости и сопровождение сделок по всей России.\n"
-        "<i>Выберите направление ниже.</i>"
-    )
+    # A fresh /start intentionally creates a new entry point. The command
+    # itself and all user messages are preserved.
     await message.answer_photo(
         photo=WELCOME_PHOTO,
-        caption=caption,
+        caption=WELCOME_CAPTION,
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
@@ -97,10 +124,10 @@ async def cmd_contact(message: Message):
 
 @router.callback_query(F.data == "menu")
 async def callback_menu(callback: CallbackQuery):
-    await replace_with_photo(
+    await show_menu_in_place(
         callback.message,
         WELCOME_PHOTO,
-        "<b>МАРИЯ МАРОЗ</b>\n<i>Выберите направление работы.</i>",
+        WELCOME_CAPTION,
         main_menu_kb(),
     )
     await callback.answer()
@@ -113,7 +140,7 @@ async def callback_service(callback: CallbackQuery):
         await callback.answer("Услуга не найдена", show_alert=True)
         return
 
-    await replace_with_photo(
+    await show_menu_in_place(
         callback.message,
         SERVICE_PHOTOS.get(service_key, WELCOME_PHOTO),
         format_service(service_key),
@@ -122,10 +149,5 @@ async def callback_service(callback: CallbackQuery):
     await callback.answer()
 
 
-@router.message()
-async def any_message(message: Message):
-    await message.answer(
-        "Выберите направление в меню или напишите Марии напрямую.",
-        reply_markup=main_menu_kb(),
-        parse_mode="HTML",
-    )
+# Intentionally no catch-all message handler: ordinary user messages stay
+# in the conversation without the bot replying with another full menu.
