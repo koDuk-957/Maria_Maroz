@@ -7,14 +7,12 @@ from services_data import SERVICES
 
 router = Router()
 
-# The exact hero photograph used on Maria's business-card website.
+# Use the exact hero image URL from the business-card website.
 WELCOME_PHOTO = (
     "https://images.pexels.com/photos/7534563/"
     "pexels-photo-7534563.jpeg?auto=compress&cs=tinysrgb&w=1400"
 )
 
-# These are the same photographs used in the corresponding service cards
-# on the business-card website.
 SERVICE_PHOTOS = {
     "consult": "https://images.pexels.com/photos/7641906/pexels-photo-7641906.jpeg?auto=compress&cs=tinysrgb&w=1000",
     "ipoteka": "https://images.pexels.com/photos/16869705/pexels-photo-16869705.jpeg?auto=compress&cs=tinysrgb&w=1000",
@@ -51,7 +49,6 @@ def format_service(service_key: str) -> str:
 
 
 async def replace_with_photo(message: Message, photo: str, caption: str, reply_markup) -> None:
-    """Send the next branded screen, then remove the previous bot menu message."""
     await message.answer_photo(
         photo=photo,
         caption=caption,
@@ -66,17 +63,16 @@ async def replace_with_photo(message: Message, photo: str, caption: str, reply_m
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    text = (
-        "<b>МАРИЯ МАРОЗ</b>\n"
-        "<i>Эксперт по недвижимости</i>\n"
-        "━━━━━━━━━━━━━━\n"
-        "Помогаю выбрать недвижимость и безопасно пройти путь "
-        "от первого вопроса до сделки.\n\n"
-        "<b>Выберите направление — расскажу подробнее.</b>"
+    # Telegram displays this caption directly under the photo, in one compact
+    # message. Keep it deliberately short so the hero image remains dominant.
+    caption = (
+        "<b>МАРИЯ МАРОЗ</b>  <i>· эксперт по недвижимости</i>\n"
+        "Помогаю выбрать недвижимость и пройти сделку спокойно и уверенно.\n"
+        "<i>Выберите направление ниже</i>"
     )
     await message.answer_photo(
         photo=WELCOME_PHOTO,
-        caption=text,
+        caption=caption,
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
@@ -84,13 +80,9 @@ async def cmd_start(message: Message):
 
 @router.message(Command("menu"))
 async def cmd_menu(message: Message):
-    text = (
-        "✦  <b>Направления работы</b>\n\n"
-        "Выберите услугу или свяжитесь с Марией напрямую."
-    )
     await message.answer_photo(
         photo=WELCOME_PHOTO,
-        caption=text,
+        caption="<b>МАРИЯ МАРОЗ</b>\n<i>Выберите направление работы</i>",
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
@@ -98,13 +90,10 @@ async def cmd_menu(message: Message):
 
 @router.message(Command("contact"))
 async def cmd_contact(message: Message):
-    text = (
+    await message.answer(
         "✦  <b>Связаться с Марией</b>\n\n"
         "Расскажите в двух словах о вашей задаче. "
-        "Мария поможет определить дальнейшие шаги."
-    )
-    await message.answer(
-        text,
+        "Мария поможет определить дальнейшие шаги.",
         reply_markup=contact_kb(),
         parse_mode="HTML",
     )
@@ -112,15 +101,10 @@ async def cmd_contact(message: Message):
 
 @router.callback_query(F.data == "menu")
 async def callback_menu(callback: CallbackQuery):
-    text = (
-        "✦  <b>Направления работы</b>\n\n"
-        "Выберите интересующую услугу. "
-        "Можно также написать Марии напрямую."
-    )
     await replace_with_photo(
         callback.message,
         WELCOME_PHOTO,
-        text,
+        "<b>МАРИЯ МАРОЗ</b>\n<i>Выберите направление работы</i>",
         main_menu_kb(),
     )
     await callback.answer()
@@ -145,8 +129,8 @@ async def callback_service(callback: CallbackQuery):
 @router.message()
 async def any_message(message: Message):
     await message.answer(
-        "Спасибо за сообщение. Чтобы быстрее сориентироваться, "
-        "выберите направление в меню или напишите Марии напрямую.",
+        "Спасибо за сообщение. Выберите направление в меню "
+        "или напишите Марии напрямую.",
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
